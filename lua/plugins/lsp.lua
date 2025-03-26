@@ -64,25 +64,16 @@ return {
 
       -- stylua: ignore start
       lsp_zero.on_attach(function(_, bufnr)
-        vim.keymap.set('n', '<Leader>ca', vim.lsp.buf.code_action, { desc = 'LSP code action', buffer = bufnr })
-        if vim.lsp.buf.range_code_action then
-          vim.keymap.set('x', '<Leader>ca', vim.lsp.buf.range_code_action, { desc = 'LSP code action', buffer = bufnr })
-        else
-          vim.keymap.set('x', '<Leader>ca', vim.lsp.buf.code_action, { desc = 'LSP code action', buffer = bufnr })
-        end
-
         vim.keymap.set({ 'n', 'x' }, '<Leader>f', function()
           require('conform').format { async = true, lsp_fallback = true }
         end, { desc = 'LSP format document', buffer = bufnr })
-
         vim.keymap.set('n', '<Leader>k', vim.lsp.buf.signature_help, { desc = 'LSP display signature information', buffer = bufnr })
-        vim.keymap.set('i', '<C-s>', vim.lsp.buf.signature_help, { desc = 'LSP display signature information', buffer = bufnr })
-        vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, { desc = 'LSP rename all references', buffer = bufnr })
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'LSP jump to the definition', buffer = bufnr })
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'LSP jump to the declaration', buffer = bufnr })
         vim.keymap.set('n', '<Leader>D', vim.lsp.buf.type_definition, { desc = 'LSP jump to the definition of the type', buffer = bufnr })
-        vim.keymap.set('n', 'gi', '<Cmd>Telescope lsp_implementations<Cr>', { desc = 'LSP lists all the implementations', buffer = bufnr })
-        vim.keymap.set('n', 'gr', '<Cmd>Telescope lsp_references<Cr>', { desc = 'LSP lists all the references', buffer = bufnr })
+        vim.keymap.set('n', 'gri', '<Cmd>Telescope lsp_implementations<Cr>', { desc = 'LSP lists all the implementations', buffer = bufnr })
+        vim.keymap.set('n', 'grr', '<Cmd>Telescope lsp_references<Cr>', { desc = 'LSP lists all the references', buffer = bufnr })
+        vim.keymap.set('n', 'gO', '<Cmd>Telescope lsp_document_symbols<Cr>', { desc = 'LSP lists all symbols', buffer = bufnr })
       end)
 
       vim.keymap.set('n', '<Leader>q', vim.diagnostic.setqflist, { desc = 'Open diagnostic quickfix list' })
