@@ -227,12 +227,6 @@ return {
         ensure_installed = ensure_installed,
         handlers = handlers,
       }
-
-      require('lspconfig.ui.windows').default_options = {
-        border = vim.g.border_chars,
-      }
-
-      vim.api.nvim_set_hl(0, 'LspInfoBorder', { link = 'FloatBorder' })
     end,
   },
 
