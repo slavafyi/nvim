@@ -1,44 +1,29 @@
 return {
   {
-    'projekt0n/github-nvim-theme',
-    lazy = false,
-    priority = 1000,
-    opts = {
-      groups = {
-        all = {
-          Delimiter = { link = '@punctuation.delimiter' },
-          StatusLine = { fg = 'fg3', bg = 'none' },
-          StatusLineNC = { fg = 'palette.fg.muted', bg = 'none' },
-        },
-      },
-    },
-    config = function(_, opts)
-      require('github-theme').setup(opts)
-
-      vim.api.nvim_create_autocmd('OptionSet', {
-        desc = 'Automatically update colorscheme based on background option',
-        group = vim.api.nvim_create_augroup('update-colorscheme', { clear = true }),
-        pattern = 'background',
+    'pappasam/papercolor-theme-slim',
+    init = function()
+      vim.api.nvim_create_autocmd('ColorScheme', {
+        desc = 'Override papercolor colorscheme highlight groups',
+        group = vim.api.nvim_create_augroup('overrides-highlight-groups', { clear = true }),
+        pattern = { 'PaperColorSlim', 'PaperColorSlimLight' },
         callback = function()
-          if vim.o.background == 'dark' then
-            vim.cmd.colorscheme 'rasmus'
-          else
-            vim.cmd.colorscheme 'github_light_default'
-          end
+          local green = vim.g.terminal_color_2
+          local yellow = vim.g.terminal_color_13
+          local red = vim.g.terminal_color_1
+
+          vim.cmd.highlight(string.format('DiffAdd guifg=%s guibg=NONE', green))
+          vim.cmd.highlight(string.format('DiffChange guifg=%s guibg=NONE', yellow))
+          vim.cmd.highlight(string.format('DiffDelete guifg=%s guibg=NONE', red))
         end,
       })
     end,
+    lazy = false,
+    priority = 1000,
   },
 
   {
     'j-hui/fidget.nvim',
-    lazy = false,
     config = true,
-  },
-
-  {
-    'slavamak/rasmus.nvim',
     lazy = false,
-    priority = 1001,
   },
 }

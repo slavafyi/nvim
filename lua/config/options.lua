@@ -34,3 +34,17 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
+
+vim.api.nvim_create_autocmd('OptionSet', {
+  desc = 'Automatically update colorscheme based on background option',
+  group = vim.api.nvim_create_augroup('update-colorscheme', { clear = true }),
+  pattern = 'background',
+  nested = true,
+  callback = function()
+    if vim.o.background == 'dark' then
+      vim.cmd.colorscheme 'PaperColorSlim'
+    else
+      vim.cmd.colorscheme 'PaperColorSlimLight'
+    end
+  end,
+})
