@@ -10,6 +10,7 @@ vim.api.nvim_create_autocmd('OptionSet', {
   desc = 'Automatically update colorscheme based on background option',
   group = vim.api.nvim_create_augroup('update-colorscheme', { clear = true }),
   pattern = 'background',
+  nested = true,
   callback = function()
     local colorscheme = vim.g.colorscheme[vim.o.background]
     vim.cmd.colorscheme(colorscheme)
