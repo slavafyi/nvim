@@ -1,6 +1,8 @@
 return {
   ["fidget.nvim"] = "d9ba6b7bfe29b3119a610892af67602641da778e",
   ["gitsigns.nvim"] = "ee0606259ee5d5dd40398be26755048e8965086e",
+  ["lazydev.nvim"] = "2367a6c0a01eb9edb0464731cc0fb61ed9ab9d2c",
+  ["mason.nvim"] = "1aceba8bc158b5aaf90649077cad06744bc23ac4",
   ["mini.nvim"] = "18889a4993a2c6de64eb07f91e7ad8666793441a",
   ["nvim-treesitter"] = "066fd6505377e3fd4aa219e61ce94c2b8bdb0b79",
   ["oil.nvim"] = "685cdb4ffa74473d75a1b97451f8654ceeab0f4a",

@@ -1,0 +1,31 @@
+{
+  "runtime": {
+    "version": "LuaJIT"
+  },
+  "runtime.path": [
+    "lua/?.lua",
+    "lua/?/init.lua"
+  ],
+  "format": {
+    "enable": true
+  },
+  "hint": {
+    "enable": true
+  },
+  "diagnostics": {
+    "unusedLocalExclude": [
+      "_*"
+    ]
+  },
+  "diagnostics.globals": [
+    "MiniCompletion",
+    "MiniDeps",
+    "MiniNotify",
+    "MiniPick",
+    "vim"
+  ],
+  "workspace.checkThirdParty": false,
+  "workspace.library": [
+    "$VIMRUNTIME"
+  ]
+}
