@@ -6,4 +6,9 @@ end)
 
 later(function()
   add 'lewis6991/gitsigns.nvim'
+  require('gitsigns').setup {
+    on_attach = function(bufnr)
+      if vim.bo[bufnr].filetype == 'netrw' then return false end
+    end,
+  }
 end)
