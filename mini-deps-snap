@@ -1,0 +1,12 @@
+return {
+  ["fidget.nvim"] = "d9ba6b7bfe29b3119a610892af67602641da778e",
+  ["gitsigns.nvim"] = "ee0606259ee5d5dd40398be26755048e8965086e",
+  ["mini.nvim"] = "18889a4993a2c6de64eb07f91e7ad8666793441a",
+  ["nvim-treesitter"] = "066fd6505377e3fd4aa219e61ce94c2b8bdb0b79",
+  ["oil.nvim"] = "685cdb4ffa74473d75a1b97451f8654ceeab0f4a",
+  ["papercolor-theme-slim"] = "c2256ac920eeac5da1d0aeb200bf9bf72098e20e",
+  ["snacks.nvim"] = "bc0630e43be5699bb94dadc302c0d21615421d93",
+  undotree = "b951b87b46c34356d44aa71886aecf9dd7f5788a",
+  ["vim-fugitive"] = "4a745ea72fa93bb15dd077109afbb3d1809383f2",
+  ["which-key.nvim"] = "370ec46f710e058c9c1646273e6b225acf47cbed"
+}
