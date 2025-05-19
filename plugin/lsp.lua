@@ -34,7 +34,9 @@ later(function()
       if not pkg:is_installed() then pkg:install() end
     end
   end)
+end)
 
+later(function()
   add 'folke/lazydev.nvim'
   vim.lsp.config('lua_ls', {
     on_attach = function(client, bufnr)
@@ -54,8 +56,10 @@ later(function()
   })
 end)
 
-vim.lsp.config('*', {
-  on_attach = on_attach,
-})
+later(function()
+  vim.lsp.config('*', {
+    on_attach = on_attach,
+  })
 
-vim.lsp.enable(server_list)
+  vim.lsp.enable(server_list)
+end)
