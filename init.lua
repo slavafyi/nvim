@@ -1,4 +1,4 @@
-require 'config.options'
-require 'config.autocmds'
-require 'config.keymaps'
-require 'config.deps'
+require 'options'
+require 'autocmds'
+require 'keymaps'
+require 'deps'
