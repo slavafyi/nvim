@@ -45,6 +45,26 @@ later(function()
 end)
 
 later(function()
+  add 'stevearc/conform.nvim'
+  require('conform').setup {
+    default_format_opts = {
+      lsp_format = 'fallback',
+      stop_after_first = true,
+    },
+    formatters_by_ft = {
+      bash = { 'shfmt' },
+      json = { 'prettierd' },
+      liquid = { 'prettierd' },
+      lua = { 'stylua' },
+      sh = { 'shfmt' },
+      yaml = { 'prettierd' },
+      zsh = { 'shfmt' },
+    },
+    log_level = vim.log.levels.DEBUG,
+  }
+end)
+
+later(function()
   add 'folke/which-key.nvim'
   require('which-key').setup {
     icons = {

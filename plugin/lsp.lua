@@ -7,6 +7,12 @@ for server in pairs(lsp_mapping) do
   table.insert(server_list, server)
 end
 
+local function on_attach(_, bufnr)
+  vim.keymap.set({ 'n', 'x' }, '<Leader>f', function()
+    require('conform').format { async = true }
+  end, { desc = 'LSP format document', buffer = bufnr })
+end
+
 later(function()
   add 'williamboman/mason.nvim'
   require('mason').setup()
@@ -22,13 +28,15 @@ end)
 later(function()
   add 'folke/lazydev.nvim'
   vim.lsp.config('lua_ls', {
-    on_attach = function(_, bufnr)
+    on_attach = function(client, bufnr)
+      on_attach(client, bufnr)
       require('lazydev').find_workspace(bufnr)
     end,
   })
 end)
 
 vim.lsp.config('*', {
+  on_attach = on_attach,
   on_init = function()
     print 'this will be everywhere'
     print 'this will be everywhere'
