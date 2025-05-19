@@ -1,8 +1,11 @@
 local add, later, now = MiniDeps.add, MiniDeps.later, MiniDeps.now
 
-local lsp_mapping = { lua_ls = 'lua-language-server' }
-local server_list = {}
+local lsp_mapping = {
+  jsonls = 'json-lsp',
+  lua_ls = 'lua-language-server',
+}
 
+local server_list = {}
 for server in pairs(lsp_mapping) do
   table.insert(server_list, server)
 end
@@ -31,9 +34,7 @@ later(function()
       if not pkg:is_installed() then pkg:install() end
     end
   end)
-end)
 
-later(function()
   add 'folke/lazydev.nvim'
   vim.lsp.config('lua_ls', {
     on_attach = function(client, bufnr)
@@ -41,16 +42,20 @@ later(function()
       require('lazydev').find_workspace(bufnr)
     end,
   })
+
+  add 'b0o/SchemaStore.nvim'
+  local schemastore = require 'schemastore'
+  vim.lsp.config('jsonls', {
+    settings = {
+      json = {
+        schemas = schemastore.json.schemas(),
+      },
+    },
+  })
 end)
 
 vim.lsp.config('*', {
   on_attach = on_attach,
-  on_init = function()
-    print 'this will be everywhere'
-    print 'this will be everywhere'
-    print 'this will be everywhere'
-    print 'this will be everywhere'
-  end,
 })
 
 vim.lsp.enable(server_list)
