@@ -46,7 +46,8 @@ end)
 
 later(function()
   add 'stevearc/conform.nvim'
-  require('conform').setup {
+  local conform = require 'conform'
+  conform.setup {
     default_format_opts = {
       lsp_format = 'fallback',
       stop_after_first = true,
@@ -62,6 +63,9 @@ later(function()
     },
     log_level = vim.log.levels.DEBUG,
   }
+  vim.keymap.set({ 'n', 'x' }, '<Leader>f', function()
+    conform.format { async = true }
+  end, { desc = 'Format document' })
 end)
 
 later(function()
