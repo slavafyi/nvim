@@ -10,19 +10,44 @@ for server in pairs(lsp_mapping) do
   table.insert(server_list, server)
 end
 
-local function on_attach(_, bufnr)
-  vim.keymap.set({ 'n', 'x' }, '<Leader>f', function()
-    require('conform').format { async = true }
-  end, { desc = 'LSP format document', buffer = bufnr })
-  -- stylua: ignore start
-  vim.keymap.set('n', '<Leader>k', vim.lsp.buf.signature_help, { desc = 'LSP display signature information', buffer = bufnr })
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'LSP jump to the definition', buffer = bufnr })
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'LSP jump to the declaration', buffer = bufnr })
-  vim.keymap.set('n', '<Leader>D', vim.lsp.buf.type_definition, { desc = 'LSP jump to the definition of the type', buffer = bufnr })
-  vim.keymap.set('n', '<Leader>q', vim.diagnostic.setqflist, { desc = 'Open diagnostic quickfix list' })
-  vim.keymap.set('n', '<Leader>e', vim.diagnostic.open_float, { desc = 'Open float diagnostic' })
-  -- stylua: ignore end
+vim.lsp.enable(server_list)
+
+local function on_attach(client, bufnr)
+  local function keymap(mode, lhs, rhs, desc)
+    vim.keymap.set(mode, lhs, rhs, { desc = desc, buffer = bufnr })
+  end
+
+  keymap('n', 'gd', vim.lsp.buf.type_definition, 'LSP jump to the definition of the type')
+  keymap('n', 'gD', vim.lsp.buf.declaration, 'LSP jump to the declaration')
+
+  if client:supports_method 'textDocument/formatting' then
+    vim.bo[bufnr].formatexpr = 'v:lua.vim.lsp.formatexpr()'
+  end
+
+  if
+    vim.lsp.inlay_hint
+    and vim.api.nvim_buf_is_valid(bufnr)
+    and vim.bo[bufnr].buftype == ''
+    and client:supports_method 'textDocument/inlayHint'
+  then
+    keymap('n', '<Leader>i', function()
+      vim.lsp.inlay_hint.enable(
+        not vim.lsp.inlay_hint.is_enabled { bufnr = bufnr },
+        { buf = bufnr }
+      )
+    end, 'LSP toggle inlay hint')
+  end
 end
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  desc = 'Configure LSP clients',
+  group = vim.api.nvim_create_augroup('configure-lsp-clients', { clear = true }),
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client == nil then return end
+    on_attach(client, args.buf)
+  end,
+})
 
 later(function()
   add 'williamboman/mason.nvim'
@@ -39,8 +64,7 @@ end)
 later(function()
   add 'folke/lazydev.nvim'
   vim.lsp.config('lua_ls', {
-    on_attach = function(client, bufnr)
-      on_attach(client, bufnr)
+    on_attach = function(_, bufnr)
       require('lazydev').find_workspace(bufnr)
     end,
   })
@@ -54,12 +78,4 @@ later(function()
       },
     },
   })
-end)
-
-later(function()
-  vim.lsp.config('*', {
-    on_attach = on_attach,
-  })
-
-  vim.lsp.enable(server_list)
 end)
