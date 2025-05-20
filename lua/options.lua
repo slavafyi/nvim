@@ -25,4 +25,5 @@ vim.opt.textwidth = 80
 vim.opt.undodir = os.getenv 'HOME' .. '/.cache/nvim/undodir'
 vim.opt.undofile = true
 vim.opt.updatetime = 300
+vim.opt.winborder = 'rounded'
 vim.opt.wrap = false
