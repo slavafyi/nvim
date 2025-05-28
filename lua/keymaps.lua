@@ -8,7 +8,6 @@ vim.keymap.set('n', '<Backspace>', '"_dh', { desc = 'Delete character to the lef
 vim.keymap.set('x', '<Backspace>', '"_d', { desc = 'Delete selection without affecting registers' })
 vim.keymap.set('v', 'J', ":m '>+1<Cr>gv=gv", { desc = 'Move selection down' })
 vim.keymap.set('v', 'K', ":m '>-2<Cr>gv=gv", { desc = 'Move selection up' })
-vim.keymap.set('n', '<Leader>p', '<Cmd>Ex<Cr>', { desc = 'Open Netrw' })
 
 vim.keymap.set('n', 'л', 'gk', { desc = 'Move cursor up' })
 vim.keymap.set('n', 'о', 'gj', { desc = 'Move cursor down' })
@@ -39,4 +38,9 @@ vim.keymap.set('n', '[h', '<Cmd>Gitsigns prev_hunk<Cr>', { desc = 'Gitsigns prev
 vim.keymap.set('n', ']h', '<Cmd>Gitsigns next_hunk<Cr>', { desc = 'Gitsigns next hunk' })
 vim.keymap.set('n', '[r', '<Cmd>lua Snacks.words.jump(-vim.v.count1)<Cr>', { desc = 'Previous reference' })
 vim.keymap.set('n', ']r', '<Cmd>lua Snacks.words.jump(vim.v.count1)<Cr>', { desc = 'Next reference' })
+vim.keymap.set('n', '<Leader>p', '<Cmd>FzfLua files<Cr>', { desc = 'Search and open files' })
+vim.keymap.set('n', '<Leader>o', '<Cmd>FzfLua oldfiles<Cr>', { desc = 'Browse recently opened files' })
+vim.keymap.set('n', '<Leader><Leader>', '<Cmd>FzfLua buffers<Cr>', { desc = 'List all open buffers' })
+vim.keymap.set('n', '<Leader>/', '<Cmd>FzfLua live_grep<Cr>', { desc = 'Live grep search' })
+vim.keymap.set('n', '<Leader>?', '<Cmd>FzfLua grep_cword<Cr>', { desc = 'Search for the word under cursor' })
 -- stylua: ignore end

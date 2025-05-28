@@ -96,3 +96,15 @@ now(function()
     },
   }
 end)
+
+now(function()
+  add 'ibhagwan/fzf-lua'
+  require('fzf-lua').setup {
+    keymap = {
+      fzf = {
+        ['alt-p'] = 'preview-page-up',
+        ['alt-n'] = 'preview-page-down',
+      },
+    },
+  }
+end)
