@@ -41,6 +41,9 @@ later(function()
       ['<C-f>'] = 'actions.preview_scroll_down',
       ['<C-b>'] = 'actions.preview_scroll_up',
     },
+    view_options = {
+      show_hidden = true,
+    },
   }
 end)
 
