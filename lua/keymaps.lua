@@ -33,6 +33,7 @@ vim.keymap.set('n', '<Leader>hp', '<Cmd>Gitsigns preview_hunk_inline<Cr>', { des
 vim.keymap.set('n', '<Leader>hP', '<Cmd>Gitsigns preview_hunk<Cr>', { desc = 'Gitsigns preview hunk' })
 vim.keymap.set('n', '<Leader>q', '<Cmd>lua vim.diagnostic.setqflist()<Cr>', { desc = 'Open diagnostic quickfix list' })
 vim.keymap.set('n', '<Leader>l', '<Cmd>lua vim.diagnostic.setloclist()<Cr>', { desc = 'Open diagnostic location list' })
+vim.keymap.set('n', '<Leader>d', '<Cmd>lua vim.diagnostic.open_float()<Cr>', { desc = 'Show diagnostics in a floating window' })
 
 vim.keymap.set('n', '[h', '<Cmd>Gitsigns prev_hunk<Cr>', { desc = 'Gitsigns prev hunk' })
 vim.keymap.set('n', ']h', '<Cmd>Gitsigns next_hunk<Cr>', { desc = 'Gitsigns next hunk' })
