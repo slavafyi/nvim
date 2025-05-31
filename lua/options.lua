@@ -1,8 +1,8 @@
+vim.g.colorscheme = { dark = 'PaperColorSlim', light = 'PaperColorSlimLight' }
 vim.g.mapleader = ' '
+vim.g.netrw_alto = 0
 vim.g.netrw_browse_split = 0
 vim.g.netrw_preview = 1
-vim.g.netrw_alto = 0
-vim.g.border_chars = 'rounded'
 vim.opt.colorcolumn = { '+1' }
 vim.opt.cursorline = true
 vim.opt.ignorecase = true
@@ -25,26 +25,5 @@ vim.opt.textwidth = 80
 vim.opt.undodir = os.getenv 'HOME' .. '/.cache/nvim/undodir'
 vim.opt.undofile = true
 vim.opt.updatetime = 300
+vim.opt.winborder = 'rounded'
 vim.opt.wrap = false
-
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-})
-
-vim.api.nvim_create_autocmd('OptionSet', {
-  desc = 'Automatically update colorscheme based on background option',
-  group = vim.api.nvim_create_augroup('update-colorscheme', { clear = true }),
-  pattern = 'background',
-  nested = true,
-  callback = function()
-    if vim.o.background == 'dark' then
-      vim.cmd.colorscheme 'PaperColorSlim'
-    else
-      vim.cmd.colorscheme 'PaperColorSlimLight'
-    end
-  end,
-})

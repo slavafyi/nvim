@@ -1,3 +1,4 @@
-require 'config.options'
-require 'config.keymaps'
-require 'config.lazy'
+require 'options'
+require 'autocmds'
+require 'keymaps'
+require 'deps'
