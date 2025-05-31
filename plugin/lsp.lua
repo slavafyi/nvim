@@ -12,6 +12,18 @@ end
 
 vim.lsp.enable(server_list)
 
+---@param opts? vim.diagnostic.Opts
+local function setup_diagnostic(opts)
+  ---@type vim.diagnostic.Opts
+  local default_opts = {
+    virtual_lines = { current_line = true },
+  }
+
+  if opts and opts.virtual_lines == false then default_opts.virtual_lines = false end
+  local merged_opts = vim.tbl_deep_extend('force', default_opts, opts or {})
+  vim.diagnostic.config(merged_opts)
+end
+
 local function on_attach(client, bufnr)
   local function keymap(mode, lhs, rhs, desc)
     vim.keymap.set(mode, lhs, rhs, { desc = desc, buffer = bufnr })
@@ -37,6 +49,13 @@ local function on_attach(client, bufnr)
       )
     end, 'LSP toggle inlay hint')
   end
+
+  keymap('n', '<Leader>v', function()
+    local virtual_lines_enabled = not vim.diagnostic.config().virtual_lines
+    setup_diagnostic { virtual_lines = virtual_lines_enabled }
+  end, 'LSP toggle diagnostic virtual lines')
+
+  setup_diagnostic()
 end
 
 vim.api.nvim_create_autocmd('LspAttach', {
