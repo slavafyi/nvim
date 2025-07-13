@@ -21,6 +21,7 @@ vim.keymap.set('n', 'вв', 'dd', { desc = 'Delete line' })
 vim.keymap.set('n', 'вц', 'dw', { desc = 'Delete word' })
 vim.keymap.set('i', 'ол', '<Esc>', { desc = 'Escape' })
 
+vim.keymap.set('n', '<Leader>u', '<Cmd>UndotreeToggle<Cr>', { desc = 'Undotree toggle' })
 vim.keymap.set('n', '-', '<Cmd>Oil<Cr>', { desc = 'File explorer' })
 vim.keymap.set('n', '_', '<Cmd>Oil --float<Cr>', { desc = 'File explorer in float window' })
 vim.keymap.set('n', '<Leader>G', '<Cmd>Git<Cr>', { desc = 'Open git summary window' })
