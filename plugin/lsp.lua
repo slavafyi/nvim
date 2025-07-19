@@ -29,7 +29,7 @@ local function on_attach(client, bufnr)
     vim.keymap.set(mode, lhs, rhs, { desc = desc, buffer = bufnr })
   end
 
-  keymap('n', 'gd', vim.lsp.buf.declaration, 'LSP jump to the declaration')
+  keymap('n', 'grd', vim.lsp.buf.declaration, 'LSP jump to the declaration')
 
   if client:supports_method 'textDocument/formatting' then
     vim.bo[bufnr].formatexpr = 'v:lua.vim.lsp.formatexpr()'
