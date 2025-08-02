@@ -108,3 +108,7 @@ now(function()
     },
   }
 end)
+
+later(function()
+  add 'wakatime/vim-wakatime'
+end)
