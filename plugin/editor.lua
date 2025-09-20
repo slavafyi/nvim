@@ -60,6 +60,7 @@ later(function()
       json = { 'prettierd' },
       liquid = { 'prettierd' },
       lua = { 'stylua' },
+      python = { 'black' },
       sh = { 'shfmt' },
       yaml = { 'prettierd' },
       zsh = { 'shfmt' },
