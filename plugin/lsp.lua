@@ -1,6 +1,7 @@
 local add, later, now = MiniDeps.add, MiniDeps.later, MiniDeps.now
 
 local lsp_mapping = {
+  bashls = 'bash-language-server',
   jsonls = 'json-lsp',
   lua_ls = 'lua-language-server',
 }
@@ -95,5 +96,9 @@ later(function()
         schemas = schemastore.json.schemas(),
       },
     },
+  })
+
+  vim.lsp.config('bashls', {
+    filetypes = { 'bash', 'sh', 'zsh' },
   })
 end)
