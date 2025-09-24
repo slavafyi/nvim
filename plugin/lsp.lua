@@ -1,9 +1,9 @@
 local add, later, now = MiniDeps.add, MiniDeps.later, MiniDeps.now
 
 local lsp_mapping = {
-  bashls = 'bash-language-server',
+  bash_ls = 'bash-language-server',
   fish_ls = 'fish-lsp',
-  jsonls = 'json-lsp',
+  json_ls = 'json-lsp',
   lua_ls = 'lua-language-server',
 }
 
@@ -91,7 +91,7 @@ later(function()
 
   add 'b0o/SchemaStore.nvim'
   local schemastore = require 'schemastore'
-  vim.lsp.config('jsonls', {
+  vim.lsp.config('json_ls', {
     settings = {
       json = {
         schemas = schemastore.json.schemas(),
@@ -99,7 +99,7 @@ later(function()
     },
   })
 
-  vim.lsp.config('bashls', {
+  vim.lsp.config('bash_ls', {
     filetypes = { 'bash', 'sh', 'zsh' },
   })
 
