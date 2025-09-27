@@ -5,6 +5,7 @@ local lsp_mapping = {
   fish_ls = 'fish-lsp',
   json_ls = 'json-lsp',
   lua_ls = 'lua-language-server',
+  yaml_ls = 'yaml-language-server',
 }
 
 local server_list = {}
@@ -104,4 +105,18 @@ later(function()
   })
 
   vim.lsp.config('fish_ls', {})
+
+  vim.lsp.config('yaml_ls', {
+    on_new_config = function(new_config)
+      new_config.settings.yaml.schemas = new_config.settings.yaml.schemas or {}
+      vim.list_extend(new_config.settings.yaml.schemas, schemastore.yaml.schemas())
+    end,
+    settings = {
+      yaml = {
+        validate = true,
+        completion = true,
+        hover = true,
+      },
+    },
+  })
 end)
