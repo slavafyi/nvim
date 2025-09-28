@@ -5,9 +5,7 @@ return {
   root_markers = { '.git' },
   settings = {
     json = {
-      format = {
-        enable = true,
-      },
+      format = { enable = true },
       validate = { enable = true },
     },
   },
