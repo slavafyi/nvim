@@ -13,8 +13,6 @@ for server in pairs(lsp_mapping) do
   table.insert(server_list, server)
 end
 
-vim.lsp.enable(server_list)
-
 ---@param opts? vim.diagnostic.Opts
 local function setup_diagnostic(opts)
   ---@type vim.diagnostic.Opts
@@ -92,6 +90,7 @@ later(function()
 
   add 'b0o/SchemaStore.nvim'
   local schemastore = require 'schemastore'
+
   vim.lsp.config('json_ls', {
     settings = {
       json = {
@@ -99,12 +98,6 @@ later(function()
       },
     },
   })
-
-  vim.lsp.config('bash_ls', {
-    filetypes = { 'bash', 'sh', 'zsh' },
-  })
-
-  vim.lsp.config('fish_ls', {})
 
   vim.lsp.config('yaml_ls', {
     on_new_config = function(new_config)
@@ -119,4 +112,6 @@ later(function()
       },
     },
   })
+
+  vim.lsp.enable(server_list)
 end)
