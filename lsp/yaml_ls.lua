@@ -8,13 +8,13 @@ return {
     'yaml.gitlab',
     'yaml.helm-values',
   },
+  on_init = function(client)
+    client.server_capabilities.documentFormattingProvider = true
+    client.server_capabilities.documentRangeFormattingProvider = true
+  end,
   root_markers = { '.git' },
   settings = {
     redhat = { telemetry = { enabled = false } },
     yaml = { format = { enable = true } },
   },
-  on_init = function(client)
-    client.server_capabilities.documentFormattingProvider = true
-    client.server_capabilities.documentRangeFormattingProvider = true
-  end,
 }
