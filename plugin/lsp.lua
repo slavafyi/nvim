@@ -1,6 +1,6 @@
 local add, later, now = MiniDeps.add, MiniDeps.later, MiniDeps.now
 
-local lsp_mapping = {
+local ls_mapping = {
   bash_ls = 'bash-language-server',
   fish_ls = 'fish-lsp',
   json_ls = 'json-lsp',
@@ -9,7 +9,7 @@ local lsp_mapping = {
 }
 
 local server_list = {}
-for server in pairs(lsp_mapping) do
+for server in pairs(ls_mapping) do
   table.insert(server_list, server)
 end
 
@@ -73,7 +73,7 @@ later(function()
   require('mason').setup()
   local registry = require 'mason-registry'
   registry.refresh(function()
-    for _, pkg_name in pairs(lsp_mapping) do
+    for _, pkg_name in pairs(ls_mapping) do
       local pkg = registry.get_package(pkg_name)
       if not pkg:is_installed() then pkg:install() end
     end
@@ -82,14 +82,16 @@ end)
 
 later(function()
   add 'folke/lazydev.nvim'
+  add 'b0o/SchemaStore.nvim'
+
+  local lazydev = require 'lazydev'
+  local schemastore = require 'schemastore'
+
   vim.lsp.config('lua_ls', {
     on_attach = function(_, bufnr)
-      require('lazydev').find_workspace(bufnr)
+      lazydev.find_workspace(bufnr)
     end,
   })
-
-  add 'b0o/SchemaStore.nvim'
-  local schemastore = require 'schemastore'
 
   vim.lsp.config('json_ls', {
     settings = {
@@ -100,15 +102,10 @@ later(function()
   })
 
   vim.lsp.config('yaml_ls', {
-    on_new_config = function(new_config)
-      new_config.settings.yaml.schemas = new_config.settings.yaml.schemas or {}
-      vim.list_extend(new_config.settings.yaml.schemas, schemastore.yaml.schemas())
-    end,
     settings = {
       yaml = {
-        validate = true,
-        completion = true,
-        hover = true,
+        schemaStore = { enable = false, url = '' },
+        schemas = schemastore.yaml.schemas(),
       },
     },
   })
