@@ -2,6 +2,7 @@ local add, later, now = MiniDeps.add, MiniDeps.later, MiniDeps.now
 
 local ls_mapping = {
   bash_ls = 'bash-language-server',
+  css_ls = 'css-lsp',
   deno_ls = '',
   emmet_ls = 'emmet-language-server',
   fish_ls = 'fish-lsp',
