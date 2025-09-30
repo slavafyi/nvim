@@ -5,6 +5,7 @@ local ls_mapping = {
   deno_ls = '',
   emmet_ls = 'emmet-language-server',
   fish_ls = 'fish-lsp',
+  html_ls = 'html-lsp',
   json_ls = 'json-lsp',
   lua_ls = 'lua-language-server',
   shopify_theme_ls = '',
