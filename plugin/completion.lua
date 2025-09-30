@@ -9,7 +9,7 @@ later(function()
       'L3MON4D3/LuaSnip',
       'ribru17/blink-cmp-spell',
     },
-    checkout = 'v1.3.1',
+    checkout = 'v1.7.0',
   }
   require('blink.cmp').setup {
     completion = {
