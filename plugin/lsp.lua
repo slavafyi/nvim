@@ -5,6 +5,7 @@ local ls_mapping = {
   fish_ls = 'fish-lsp',
   json_ls = 'json-lsp',
   lua_ls = 'lua-language-server',
+  ts_ls = 'typescript-language-server',
   yaml_ls = 'yaml-language-server',
 }
 
@@ -106,6 +107,39 @@ later(function()
       yaml = {
         schemaStore = { enable = false, url = '' },
         schemas = schemastore.yaml.schemas(),
+      },
+    },
+  })
+
+  local format_settings = {
+    indentSize = 2,
+    semicolons = 'remove',
+  }
+  local inlay_hints_settings = {
+    includeInlayEnumMemberValueHints = true,
+    includeInlayFunctionLikeReturnTypeHints = true,
+    includeInlayFunctionParameterTypeHints = true,
+    includeInlayParameterNameHints = 'literal',
+    includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+    includeInlayPropertyDeclarationTypeHints = true,
+    includeInlayVariableTypeHints = false,
+    includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+  }
+
+  vim.lsp.config('ts_ls', {
+    init_options = {
+      preferences = {
+        quotePreference = 'single',
+      },
+    },
+    settings = {
+      javascript = {
+        format = format_settings,
+        inlayHints = inlay_hints_settings,
+      },
+      typescript = {
+        format = format_settings,
+        inlayHints = inlay_hints_settings,
       },
     },
   })
