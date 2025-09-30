@@ -6,6 +6,7 @@ local ls_mapping = {
   fish_ls = 'fish-lsp',
   json_ls = 'json-lsp',
   lua_ls = 'lua-language-server',
+  shopify_theme_ls = '',
   ts_ls = 'typescript-language-server',
   yaml_ls = 'yaml-language-server',
 }
