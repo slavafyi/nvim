@@ -1,6 +1,7 @@
 local add, later, now = MiniDeps.add, MiniDeps.later, MiniDeps.now
 
 local ls_mapping = {
+  ansible_ls = 'ansible-language-server',
   bash_ls = 'bash-language-server',
   css_ls = 'css-lsp',
   deno_ls = '',
