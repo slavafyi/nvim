@@ -10,6 +10,7 @@ local ls_mapping = {
   json_ls = 'json-lsp',
   lua_ls = 'lua-language-server',
   shopify_theme_ls = '',
+  taplo_ls = 'taplo',
   ts_ls = 'typescript-language-server',
   yaml_ls = 'yaml-language-server',
 }
