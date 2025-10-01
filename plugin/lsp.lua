@@ -82,13 +82,17 @@ later(function()
   add 'williamboman/mason.nvim'
   require('mason').setup()
   local registry = require 'mason-registry'
-  local excluded_packages = { 'deno', 'shopify-cli', 'ruby-lsp' }
+  local packages = { 'black', 'prettierd' }
+  local excluded_packages = { 'deno', 'ruby-lsp' }
+
+  local ensure_installed = vim.tbl_filter(function(name)
+    return not vim.tbl_contains(excluded_packages, name)
+  end, vim.list_extend(ls_mapping, packages))
+
   registry.refresh(function()
-    for _, pkg_name in pairs(ls_mapping) do
-      if not vim.tbl_contains(excluded_packages, pkg_name) then
-        local pkg = registry.get_package(pkg_name)
-        if not pkg:is_installed() then pkg:install() end
-      end
+    for _, pkg_name in pairs(ensure_installed) do
+      local pkg = registry.get_package(pkg_name)
+      if not pkg:is_installed() then pkg:install() end
     end
   end)
 end)
