@@ -4,7 +4,7 @@ local ls_mapping = {
   ansible_ls = 'ansible-language-server',
   bash_ls = 'bash-language-server',
   css_ls = 'css-lsp',
-  deno_ls = '',
+  deno_ls = 'deno',
   emmet_ls = 'emmet-language-server',
   fish_ls = 'fish-lsp',
   html_ls = 'html-lsp',
@@ -12,7 +12,7 @@ local ls_mapping = {
   lua_ls = 'lua-language-server',
   ruby_ls = 'ruby-lsp',
   py_ls = 'python-lsp-server',
-  shopify_theme_ls = '',
+  shopify_theme_ls = 'shopify-cli',
   taplo_ls = 'taplo',
   ts_ls = 'typescript-language-server',
   yaml_ls = 'yaml-language-server',
@@ -82,9 +82,10 @@ later(function()
   add 'williamboman/mason.nvim'
   require('mason').setup()
   local registry = require 'mason-registry'
+  local excluded_packages = { 'deno', 'shopify-cli', 'ruby-lsp' }
   registry.refresh(function()
     for _, pkg_name in pairs(ls_mapping) do
-      if pkg_name ~= '' then
+      if not vim.tbl_contains(excluded_packages, pkg_name) then
         local pkg = registry.get_package(pkg_name)
         if not pkg:is_installed() then pkg:install() end
       end
