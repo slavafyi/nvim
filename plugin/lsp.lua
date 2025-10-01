@@ -94,6 +94,13 @@ later(function()
 end)
 
 later(function()
+  add 'icholy/lsplinks.nvim'
+  local lsplinks = require 'lsplinks'
+  lsplinks.setup()
+  vim.keymap.set('n', 'gx', lsplinks.gx, { desc = 'Open file using LSP document links' })
+end)
+
+later(function()
   add 'folke/lazydev.nvim'
   add 'b0o/SchemaStore.nvim'
 
