@@ -8,6 +8,7 @@ later(function()
       'ways-agency/shopify-liquid-snippets',
       'L3MON4D3/LuaSnip',
       'ribru17/blink-cmp-spell',
+      'fang2hou/blink-copilot',
     },
     checkout = 'v1.7.0',
   }
@@ -35,6 +36,13 @@ later(function()
     },
     keymap = {
       preset = 'enter',
+      ['<Tab>'] = {
+        'snippet_forward',
+        function()
+          return require('sidekick').nes_jump_or_apply()
+        end,
+        'fallback',
+      },
     },
     snippets = {
       preset = 'luasnip',
@@ -42,6 +50,7 @@ later(function()
     sources = {
       default = {
         'buffer',
+        'copilot',
         'lazydev',
         'lsp',
         'path',
@@ -50,24 +59,26 @@ later(function()
       },
       providers = {
         buffer = {
-          score_offset = 6,
+          score_offset = 5,
+        },
+        copilot = {
+          module = 'blink-copilot',
+          score_offset = -50,
         },
         lazydev = {
-          name = 'LazyDev',
           module = 'lazydev.integrations.blink',
-          score_offset = 8,
+          score_offset = 10,
         },
         lsp = {
-          score_offset = 9,
+          score_offset = 30,
         },
         path = {
-          score_offset = 7,
+          score_offset = 5,
         },
         snippets = {
           score_offset = 10,
         },
         spell = {
-          name = 'Spell',
           module = 'blink-cmp-spell',
           score_offset = 0,
         },

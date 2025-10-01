@@ -45,4 +45,12 @@ vim.keymap.set('n', '<Leader>o', '<Cmd>FzfLua oldfiles<Cr>', { desc = 'Browse re
 vim.keymap.set('n', '<Leader><Leader>', '<Cmd>FzfLua buffers<Cr>', { desc = 'List all open buffers' })
 vim.keymap.set('n', '<Leader>/', '<Cmd>FzfLua live_grep<Cr>', { desc = 'Live grep search' })
 vim.keymap.set('n', '<Leader>?', '<Cmd>FzfLua grep_cword<Cr>', { desc = 'Search for the word under cursor' })
+
+vim.keymap.set('n', '<Tab>', '<Cmd>lua require("sidekick").nes_jump_or_apply()<Cr>', { desc = 'Sidekick jump or apply next edit' })
+vim.keymap.set('n', '<Leader>aa', '<Cmd>Sidekick cli toggle<Cr>', { desc = 'Sidekick toggle cli' })
+vim.keymap.set('n', '<Leader>ac', '<Cmd>Sidekick cli toggle name=codex<Cr>', { desc = 'Sidekick toggle codex' })
+vim.keymap.set('n', '<Leader>as', '<Cmd>Sidekick cli send name=codex selection=true<Cr>', { desc = 'Sidekick send selection to codex' })
+vim.keymap.set('n', '<Leader>nu', '<Cmd>Sidekick nes update<Cr>', { desc = 'Sidekick request fresh edits' })
+vim.keymap.set('n', '<Leader>nc', '<Cmd>Sidekick nes clear<Cr>', { desc = 'Sidekick cancel requests' })
+vim.keymap.set('n', '<Leader>nt', '<Cmd>Sidekick nes toggle<Cr>', { desc = 'Sidekick toggle nes' })
 -- stylua: ignore end
