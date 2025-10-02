@@ -113,18 +113,3 @@ end)
 later(function()
   add 'wakatime/vim-wakatime'
 end)
-
-now(function()
-  add 'folke/sidekick.nvim'
-  require('sidekick').setup {
-    cli = {
-      mux = {
-        enabled = true,
-        backend = 'tmux',
-      },
-    },
-    nes = {
-      enabled = false,
-    },
-  }
-end)

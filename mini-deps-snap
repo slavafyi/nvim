@@ -17,7 +17,6 @@ return {
   ["oil.nvim"] = "919e155fdf38e9148cdb5304faaaf53c20d703ea",
   ["papercolor-theme-slim"] = "b961e14625fea44e6cc6f0d928af6e3523061dd5",
   ["shopify-liquid-snippets"] = "c3549b07980fd4cd6f03dd22185c2f7e47302252",
-  ["sidekick.nvim"] = "04bf35c65d47f5d2bc582ff962ed819bd7f5bccb",
   ["snacks.nvim"] = "bfe8c26dbd83f7c4fbc222787552e29b4eccfcc0",
   undotree = "0f1c9816975b5d7f87d5003a19c53c6fd2ff6f7f",
   ["vim-fugitive"] = "61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4",
