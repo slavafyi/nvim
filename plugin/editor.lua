@@ -113,3 +113,30 @@ end)
 later(function()
   add 'wakatime/vim-wakatime'
 end)
+
+later(function()
+  add 'copilotlsp-nvim/copilot-lsp'
+  vim.g.copilot_nes_debounce = 500
+end)
+
+later(function()
+  add {
+    source = 'zbirenbaum/copilot.lua',
+    depends = { 'copilotlsp-nvim/copilot-lsp' },
+  }
+  require('copilot').setup {
+    panel = {
+      enabled = true,
+    },
+    suggestion = {
+      enabled = true,
+    },
+    nes = {
+      enabled = true,
+      keymap = {
+        accept_and_goto = '<Tab>',
+        dismiss = '<Esc>',
+      },
+    },
+  }
+end)
