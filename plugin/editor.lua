@@ -109,6 +109,9 @@ now(function()
         ['<M-S-n>'] = 'preview-down',
       },
     },
+    oldfiles = {
+      include_current_session = true,
+    },
   }
 end)
 
