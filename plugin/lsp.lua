@@ -28,11 +28,10 @@ end
 local function setup_diagnostic(opts)
   ---@type vim.diagnostic.Opts
   local default_opts = {
-    virtual_lines = { current_line = true },
+    virtual_lines = false,
   }
 
-  if opts and opts.virtual_lines == false then default_opts.virtual_lines = false end
-  local merged_opts = vim.tbl_deep_extend('force', default_opts, opts or {})
+  local merged_opts = vim.tbl_deep_extend('force', {}, default_opts, opts or {})
   vim.diagnostic.config(merged_opts)
 end
 
@@ -62,9 +61,18 @@ local function on_attach(client, bufnr)
   end
 
   keymap('n', '<Leader>v', function()
-    local virtual_lines_enabled = not vim.diagnostic.config().virtual_lines
-    setup_diagnostic { virtual_lines = virtual_lines_enabled }
-  end, 'LSP toggle diagnostic virtual lines')
+    local virtual_lines = vim.diagnostic.config().virtual_lines
+
+    ---@type boolean | { current_line?: boolean }
+    local next_state = false
+    if virtual_lines == false or virtual_lines == nil then
+      next_state = { current_line = true }
+    elseif type(virtual_lines) == 'table' and virtual_lines.current_line then
+      next_state = true
+    end
+
+    setup_diagnostic { virtual_lines = next_state }
+  end, 'LSP cycle diagnostic virtual lines')
 
   setup_diagnostic()
 end
