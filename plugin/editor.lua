@@ -101,6 +101,9 @@ end)
 now(function()
   add 'ibhagwan/fzf-lua'
   require('fzf-lua').setup {
+    grep = {
+      hidden = true,
+    },
     keymap = {
       builtin = {
         ['<M-p>'] = 'preview-page-up',
