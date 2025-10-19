@@ -2,7 +2,6 @@ return {
   LuaSnip = "73813308abc2eaeff2bc0d3f2f79270c491be9d7",
   ["SchemaStore.nvim"] = "c8af3f44c68757344b4dcb82e2ac48892b1be765",
   ["blink-cmp-spell"] = "2bd0e0d5e7735c047e72b6918a0458f3e8fadaba",
-  ["blink-copilot"] = "5d35fd07fcc148be20442da1bdd2407e03263d7d",
   ["blink.cmp"] = "327fff91fe6af358e990be7be1ec8b78037d2138",
   ["conform.nvim"] = "c64cc754ace603e185ab30113aaef174187eacf8",
   ["copilot-lsp"] = "a80e0c17e7366614d39506825f49a25d285fead9",

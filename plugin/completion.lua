@@ -8,7 +8,6 @@ later(function()
       'ways-agency/shopify-liquid-snippets',
       'L3MON4D3/LuaSnip',
       'ribru17/blink-cmp-spell',
-      'fang2hou/blink-copilot',
     },
     checkout = 'v1.7.0',
   }
@@ -17,6 +16,9 @@ later(function()
       documentation = {
         auto_show = true,
         auto_show_delay_ms = 500,
+      },
+      ghost_text = {
+        enabled = true,
       },
       list = {
         selection = {
@@ -31,6 +33,7 @@ later(function()
             { 'label', 'label_description', gap = 1 },
             { 'kind' },
           },
+          treesitter = { 'lsp' },
         },
       },
     },
@@ -59,7 +62,6 @@ later(function()
     sources = {
       default = {
         'buffer',
-        'copilot',
         'lazydev',
         'lsp',
         'path',
@@ -67,29 +69,28 @@ later(function()
         'spell',
       },
       providers = {
-        buffer = {
-          score_offset = 5,
-        },
-        copilot = {
-          module = 'blink-copilot',
-          score_offset = -50,
-        },
         lazydev = {
           module = 'lazydev.integrations.blink',
           score_offset = 10,
         },
-        lsp = {
-          score_offset = 30,
-        },
-        path = {
-          score_offset = 5,
-        },
-        snippets = {
-          score_offset = 10,
-        },
         spell = {
           module = 'blink-cmp-spell',
-          score_offset = 0,
+          opts = {
+            enable_in_context = function()
+              local curpos = vim.api.nvim_win_get_cursor(0)
+              local captures = vim.treesitter.get_captures_at_pos(0, curpos[1] - 1, curpos[2] - 1)
+              local in_spell_capture = false
+              for _, cap in ipairs(captures) do
+                if cap.capture == 'spell' then
+                  in_spell_capture = true
+                elseif cap.capture == 'nospell' then
+                  return false
+                end
+              end
+              return in_spell_capture
+            end,
+          },
+          score_offset = -35,
         },
       },
     },
