@@ -130,6 +130,9 @@ later(function()
     source = 'zbirenbaum/copilot.lua',
   }
   require('copilot').setup {
+    filetypes = {
+      ['*'] = true,
+    },
     panel = {
       enabled = true,
     },
