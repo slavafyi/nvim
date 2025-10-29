@@ -4,7 +4,6 @@ return {
   ["blink-cmp-spell"] = "2bd0e0d5e7735c047e72b6918a0458f3e8fadaba",
   ["blink.cmp"] = "327fff91fe6af358e990be7be1ec8b78037d2138",
   ["conform.nvim"] = "c64cc754ace603e185ab30113aaef174187eacf8",
-  ["copilot-lsp"] = "a80e0c17e7366614d39506825f49a25d285fead9",
   ["copilot.lua"] = "3cd5086c28c5769f5db147721f457a3e081de254",
   ["fidget.nvim"] = "3f5475949679953af6d78654db29b944fa826e6a",
   ["friendly-snippets"] = "572f5660cf05f8cd8834e096d7b4c921ba18e175",
