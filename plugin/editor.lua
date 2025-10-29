@@ -111,6 +111,9 @@ now(function()
         ['<M-S-p>'] = 'preview-up',
         ['<M-S-n>'] = 'preview-down',
       },
+      fzf = {
+        ['ctrl-q'] = 'select-all+accept',
+      },
     },
     oldfiles = {
       include_current_session = true,
