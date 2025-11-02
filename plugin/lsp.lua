@@ -11,6 +11,7 @@ local ls_mapping = {
   html_ls = 'html-lsp',
   json_ls = 'json-lsp',
   lua_ls = 'lua-language-server',
+  nix_ls = 'nixd',
   py_ls = 'python-lsp-server',
   ruby_ls = 'ruby-lsp',
   shopify_theme_ls = 'shopify-cli',
@@ -91,8 +92,8 @@ later(function()
   add 'williamboman/mason.nvim'
   require('mason').setup()
   local registry = require 'mason-registry'
-  local packages = { 'black', 'prettierd' }
-  local excluded_packages = { 'deno', 'ruby-lsp' }
+  local packages = { 'black', 'nixfmt', 'prettierd' }
+  local excluded_packages = { 'deno', 'nixd', 'ruby-lsp' }
 
   local ensure_installed = vim.tbl_filter(function(name)
     return not vim.tbl_contains(excluded_packages, name)
