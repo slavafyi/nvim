@@ -21,8 +21,9 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.statusline = '%f %m %= %Y %p%% %l:%c'
 vim.opt.swapfile = false
+vim.opt.termguicolors = true
 vim.opt.textwidth = 80
-vim.opt.undodir = os.getenv 'HOME' .. '/.cache/nvim/undodir'
+vim.opt.undodir = os.getenv 'XDG_CACHE_HOME' .. '/nvim/undodir'
 vim.opt.undofile = true
 vim.opt.updatetime = 300
 vim.opt.winborder = 'rounded'
