@@ -1,25 +1,19 @@
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+vim.filetype.add {
   pattern = {
-    '*/host_vars/*.yml',
-    '*/host_vars/*.yaml',
-    '*/group_vars/*.yml',
-    '*/group_vars/*.yaml',
-    '*/group_vars/*/*.yml',
-    '*/group_vars/*/*.yaml',
-    '*/playbook*.yml',
-    '*/playbook*.yaml',
-    '*/playbooks/*.yml',
-    '*/playbooks/*.yaml',
-    '*/roles/*/tasks/*.yml',
-    '*/roles/*/tasks/*.yaml',
-    '*/roles/*/handlers/*.yml',
-    '*/roles/*/handlers/*.yaml',
-    '*/molecule/*.yml',
-    '*/molecule/*.yaml',
-    '/home/*/ansible/*.yaml',
-    '/home/*/ansible/*.yml',
+    ['.*/group_vars/.*%.yml'] = 'yaml.ansible',
+    ['.*/group_vars/.*%.yaml'] = 'yaml.ansible',
+    ['.*/group_vars/.*/.*%.yml'] = 'yaml.ansible',
+    ['.*/group_vars/.*/.*%.yaml'] = 'yaml.ansible',
+    ['.*/host_vars/.*%.yml'] = 'yaml.ansible',
+    ['.*/host_vars/.*%.yaml'] = 'yaml.ansible',
+    ['.*/hosts%.yml'] = 'yaml.ansible',
+    ['.*/playbooks/.*%.yml'] = 'yaml.ansible',
+    ['.*/playbooks/.*%.yaml'] = 'yaml.ansible',
+    ['.*/roles/.*/tasks/.*%.yml'] = 'yaml.ansible',
+    ['.*/roles/.*/tasks/.*%.yaml'] = 'yaml.ansible',
+    ['.*/roles/.*/handlers/.*%.yml'] = 'yaml.ansible',
+    ['.*/roles/.*/handlers/.*%.yaml'] = 'yaml.ansible',
+    ['.*/roles/.*/defaults/.*%.yml'] = 'yaml.ansible',
+    ['.*/roles/.*/defaults/.*%.yaml'] = 'yaml.ansible',
   },
-  callback = function()
-    vim.bo.filetype = 'yaml.ansible'
-  end,
-})
+}
