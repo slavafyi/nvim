@@ -15,6 +15,7 @@ local ls_mapping = {
   py_ls = 'python-lsp-server',
   ruby_ls = 'ruby-lsp',
   shopify_theme_ls = 'shopify-cli',
+  tailwindcss_ls = 'tailwindcss-language-server',
   taplo_ls = 'taplo',
   ts_ls = 'typescript-language-server',
   yaml_ls = 'yaml-language-server',
