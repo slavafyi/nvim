@@ -8,6 +8,7 @@ local ls_mapping = {
   deno_ls = 'deno',
   emmet_ls = 'emmet-language-server',
   fish_ls = 'fish-lsp',
+  gleam_ls = 'gleam',
   html_ls = 'html-lsp',
   json_ls = 'json-lsp',
   lua_ls = 'lua-language-server',
@@ -94,7 +95,7 @@ later(function()
   require('mason').setup()
   local registry = require 'mason-registry'
   local packages = { 'black', 'nixfmt', 'prettierd' }
-  local excluded_packages = { 'deno', 'nixd', 'ruby-lsp' }
+  local excluded_packages = { 'deno', 'gleam', 'nixd', 'ruby-lsp' }
 
   local ensure_installed = vim.tbl_filter(function(name)
     return not vim.tbl_contains(excluded_packages, name)
