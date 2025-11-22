@@ -42,6 +42,7 @@ vim.keymap.set('n', '[r', '<Cmd>lua Snacks.words.jump(-vim.v.count1)<Cr>', { des
 vim.keymap.set('n', ']r', '<Cmd>lua Snacks.words.jump(vim.v.count1)<Cr>', { desc = 'Next reference' })
 vim.keymap.set('n', '<Leader>p', '<Cmd>FzfLua files<Cr>', { desc = 'Search and open files' })
 vim.keymap.set('n', '<Leader>o', '<Cmd>FzfLua oldfiles<Cr>', { desc = 'Browse recently opened files' })
+vim.keymap.set('n', '<Leader>r', '<Cmd>FzfLua resume<Cr>', { desc = 'Resume last command/query' })
 vim.keymap.set('n', '<Leader><Leader>', '<Cmd>FzfLua buffers<Cr>', { desc = 'List all open buffers' })
 vim.keymap.set('n', '<Leader>/', '<Cmd>FzfLua live_grep<Cr>', { desc = 'Live grep search' })
 vim.keymap.set('n', '<Leader>?', '<Cmd>FzfLua grep_cword<Cr>', { desc = 'Search for the word under cursor' })
