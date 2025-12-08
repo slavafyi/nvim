@@ -8,6 +8,7 @@ later(function()
       'ways-agency/shopify-liquid-snippets',
       'L3MON4D3/LuaSnip',
       'ribru17/blink-cmp-spell',
+      'moyiz/blink-emoji.nvim',
     },
     checkout = 'v1.7.0',
   }
@@ -48,8 +49,24 @@ later(function()
         'path',
         'snippets',
         'spell',
+        'emoji',
       },
       providers = {
+        emoji = {
+          module = 'blink-emoji',
+          name = 'Emoji',
+          score_offset = 15,
+          opts = {
+            insert = true,
+            ---@type string|table|fun():table
+            trigger = function()
+              return { ':' }
+            end,
+          },
+          should_show_items = function()
+            return vim.tbl_contains({ 'gitcommit', 'markdown' }, vim.o.filetype)
+          end,
+        },
         lazydev = {
           module = 'lazydev.integrations.blink',
           score_offset = 10,
