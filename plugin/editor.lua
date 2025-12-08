@@ -127,22 +127,32 @@ end)
 
 later(function()
   add {
-    source = 'zbirenbaum/copilot.lua',
+    source = 'milanglacier/minuet-ai.nvim',
+    depends = {
+      'nvim-lua/plenary.nvim',
+    },
   }
-  require('copilot').setup {
-    filetypes = {
-      ['*'] = true,
+  require('minuet').setup {
+    debounce = 0,
+    notify = 'debug',
+    provider = 'openai',
+    provider_options = {
+      openai = {
+        model = 'gpt-5.1',
+        optional = {
+          reasoning_effort = 'none',
+        },
+      },
     },
-    panel = {
-      enabled = true,
-    },
-    suggestion = {
-      enabled = true,
-    },
-    nes = {
-      enabled = false,
+    request_timeout = 1,
+    throttle = 500,
+    virtualtext = {
+      auto_trigger_ft = { '*' },
       keymap = {
-        accept_and_goto = '<Tab>',
+        accept = '<Tab>',
+        accept_line = '<M-l>',
+        next = '<M-]>',
+        prev = '<M-[>',
         dismiss = '<Esc>',
       },
     },
