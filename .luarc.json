@@ -27,6 +27,7 @@
   ],
   "workspace.checkThirdParty": false,
   "workspace.library": [
-    "$VIMRUNTIME"
+    "$VIMRUNTIME",
+    "$XDG_DATA_HOME/nvim"
   ]
 }
