@@ -138,13 +138,16 @@ later(function()
     },
     suggestion = {
       enabled = true,
+      keymap = {
+        accept = '<Tab>',
+        accept_line = '<M-l>',
+        next = '<M-]>',
+        prev = '<M-[>',
+        dismiss = '<Esc>',
+      },
     },
     nes = {
       enabled = false,
-      keymap = {
-        accept_and_goto = '<Tab>',
-        dismiss = '<Esc>',
-      },
     },
   }
 end)
