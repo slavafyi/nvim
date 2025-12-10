@@ -187,6 +187,7 @@ later(function()
         end,
       },
     },
+    ignore_warnings = true,
     strategies = {
       chat = {
         adapter = {
