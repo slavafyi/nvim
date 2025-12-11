@@ -5,7 +5,6 @@ later(function()
     source = 'saghen/blink.cmp',
     depends = {
       'rafamadriz/friendly-snippets',
-      'ways-agency/shopify-liquid-snippets',
       'L3MON4D3/LuaSnip',
       'ribru17/blink-cmp-spell',
       'moyiz/blink-emoji.nvim',
