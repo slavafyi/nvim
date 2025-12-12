@@ -213,24 +213,29 @@ later(function()
     setup = function()
       local progress = require 'fidget.progress'
 
-      local spinner = {
-        completed = '✓ Completed',
+      local messages = {
+        started = ' Sending...',
+        success = '✓ Completed',
         error = '✗ Error',
         cancelled = '- Cancelled',
       }
 
-      spinner.handles = {}
+      local handles = {}
 
-      ---Format the adapter name and model for display with the spinner
+      ---Format the adapter name and model for display
       ---@param adapter CodeCompanion.ACPAdapter|CodeCompanion.HTTPAdapter
       ---@return string
-      local function format_adapter(adapter)
-        local parts = {}
-        table.insert(parts, adapter.formatted_name)
-        if adapter.model and adapter.model ~= '' then
-          table.insert(parts, '(' .. adapter.model .. ')')
+      local function adapter_label(adapter)
+        local model = adapter.model
+        if model and model ~= '' then
+          return string.format('%s (%s)', adapter.formatted_name, model)
         end
-        return table.concat(parts, ' ')
+        return adapter.formatted_name
+      end
+
+      local function finish(handle, status)
+        handle.message = messages[status] or messages.cancelled
+        handle:finish()
       end
 
       local group = vim.api.nvim_create_augroup('codecompanion-spinner', {})
@@ -239,14 +244,12 @@ later(function()
         pattern = 'CodeCompanionRequestStarted',
         group = group,
         callback = function(args)
-          local handle = progress.handle.create {
+          local id = args.data.id
+          handles[id] = progress.handle.create {
             title = '',
-            message = ' Sending...',
-            lsp_client = {
-              name = format_adapter(args.data.adapter),
-            },
+            message = messages.started,
+            lsp_client = { name = adapter_label(args.data.adapter) },
           }
-          spinner.handles[args.data.id] = handle
         end,
       })
 
@@ -254,18 +257,10 @@ later(function()
         pattern = 'CodeCompanionRequestFinished',
         group = group,
         callback = function(args)
-          local handle = spinner.handles[args.data.id]
-          spinner.handles[args.data.id] = nil
-          if handle then
-            if args.data.status == 'success' then
-              handle.message = spinner.completed
-            elseif args.data.status == 'error' then
-              handle.message = spinner.error
-            else
-              handle.message = spinner.cancelled
-            end
-            handle:finish()
-          end
+          local id = args.data.id
+          local handle = handles[id]
+          handles[id] = nil
+          if handle then finish(handle, args.data.status) end
         end,
       })
     end,
