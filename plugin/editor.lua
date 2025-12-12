@@ -172,12 +172,14 @@ later(function()
           ---@type CodeCompanion.HTTPAdapter.OpenAIResponses
           local config = {
             schema = {
-              ['reasoning.effort'] = 'none',
+              temperature = {
+                condition = function()
+                  return false
+                end,
+              },
               top_p = {
-                condition = function(self)
-                  local model = self.schema.model.default
-                  if type(model) == 'function' then model = model() end
-                  return not model == 'gpt-5.1-codex-max'
+                condition = function()
+                  return false
                 end,
               },
             },
@@ -190,21 +192,18 @@ later(function()
     ignore_warnings = true,
     strategies = {
       chat = {
-        adapter = {
-          name = 'openai_responses',
-          model = 'gpt-5.1-codex-max',
-        },
+        adapter = 'opencode',
       },
       inline = {
         adapter = {
           name = 'openai_responses',
-          model = 'gpt-5.1-codex',
+          model = 'gpt-5.2',
         },
       },
       cmd = {
         adapter = {
           name = 'openai_responses',
-          model = 'gpt-5.1-codex-mini',
+          model = 'gpt-5.2',
         },
       },
     },
