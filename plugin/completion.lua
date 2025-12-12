@@ -13,7 +13,7 @@ later(function()
       'ribru17/blink-cmp-spell',
       'moyiz/blink-emoji.nvim',
     },
-    checkout = 'v1.7.0',
+    checkout = 'v1.8.0',
   }
 
   require('blink.cmp').setup {
