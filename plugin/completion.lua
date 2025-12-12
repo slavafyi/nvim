@@ -2,15 +2,20 @@ local add, later, now = MiniDeps.add, MiniDeps.later, MiniDeps.now
 
 later(function()
   add {
+    source = 'slavafyi/friendly-snippets',
+    checkout = 'feature/liquid-update',
+  }
+
+  add {
     source = 'saghen/blink.cmp',
     depends = {
-      'rafamadriz/friendly-snippets',
       'L3MON4D3/LuaSnip',
       'ribru17/blink-cmp-spell',
       'moyiz/blink-emoji.nvim',
     },
     checkout = 'v1.7.0',
   }
+
   require('blink.cmp').setup {
     completion = {
       documentation = {
@@ -92,5 +97,20 @@ later(function()
       },
     },
   }
-  require('luasnip.loaders.from_vscode').lazy_load()
+
+  local luasnip_vscode = require 'luasnip.loaders.from_vscode'
+  luasnip_vscode.lazy_load()
+
+  local ls = require 'luasnip'
+  local modes = { 'i', 's' }
+
+  local function change_choice(delta)
+    return function()
+      if not ls.choice_active() then return end
+      ls.change_choice(delta)
+    end
+  end
+
+  vim.keymap.set(modes, '<C-n>', change_choice(1), { desc = 'Next choice' })
+  vim.keymap.set(modes, '<C-p>', change_choice(-1), { desc = 'Prev choice' })
 end)
