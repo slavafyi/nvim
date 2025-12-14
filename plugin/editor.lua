@@ -173,12 +173,12 @@ later(function()
           local config = {
             schema = {
               temperature = {
-                condition = function()
+                enabled = function()
                   return false
                 end,
               },
               top_p = {
-                condition = function()
+                enabled = function()
                   return false
                 end,
               },
@@ -190,7 +190,7 @@ later(function()
       },
     },
     ignore_warnings = true,
-    strategies = {
+    interactions = {
       chat = {
         adapter = 'opencode',
       },
