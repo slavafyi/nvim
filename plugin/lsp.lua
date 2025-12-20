@@ -94,7 +94,7 @@ later(function()
   add 'williamboman/mason.nvim'
   require('mason').setup()
   local registry = require 'mason-registry'
-  local packages = { 'black', 'nixfmt', 'prettierd' }
+  local packages = { 'black', 'eslint_d', 'nixfmt', 'prettierd' }
   local excluded_packages = { 'deno', 'gleam', 'nixd', 'ruby-lsp' }
 
   local ensure_installed = vim.tbl_filter(function(name)

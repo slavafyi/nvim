@@ -50,12 +50,30 @@ end)
 later(function()
   add 'stevearc/conform.nvim'
   local conform = require 'conform'
+  local conform_util = require 'conform.util'
+  conform.formatters.prettierd_js = {
+    inherit = 'prettierd',
+    condition = conform_util.root_file {
+      'node_modules/eslint-plugin-prettier',
+      'node_modules/eslint-config-prettier',
+    },
+  }
+  conform.formatters.prettierd_css = {
+    inherit = 'prettierd',
+    condition = conform_util.root_file { 'node_modules/stylelint-prettier' },
+  }
   conform.setup {
     default_format_opts = {
       lsp_format = 'fallback',
       stop_after_first = true,
     },
     formatters_by_ft = {
+      css = { 'prettierd_css', 'stylelint' },
+      scss = { 'prettierd_css', 'stylelint' },
+      javascript = { 'prettierd_js', 'eslint_d' },
+      javascriptreact = { 'prettierd_js', 'eslint_d' },
+      typescript = { 'prettierd_js', 'eslint_d' },
+      typescriptreact = { 'prettierd_js', 'eslint_d' },
       bash = { 'shfmt' },
       json = { 'prettierd' },
       liquid = { 'prettierd' },
