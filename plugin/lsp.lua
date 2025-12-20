@@ -117,6 +117,15 @@ later(function()
 end)
 
 later(function()
+  add 'esmuellert/nvim-eslint'
+  require('nvim-eslint').setup {
+    workingDirectory = function(bufnr)
+      return { directory = vim.fs.root(bufnr, { 'package.json' }) }
+    end,
+  }
+end)
+
+later(function()
   add 'folke/lazydev.nvim'
   add 'b0o/SchemaStore.nvim'
 
