@@ -5,7 +5,7 @@ vim.g.netrw_browse_split = 0
 vim.g.netrw_preview = 1
 vim.opt.colorcolumn = { '+1' }
 vim.opt.cursorline = true
-vim.opt.formatoptions:remove('t')
+vim.opt.formatoptions:remove 't'
 vim.opt.ignorecase = true
 vim.opt.inccommand = 'split'
 vim.opt.list = true
