@@ -187,18 +187,21 @@ later(function()
         openai_responses = function()
           local adapters = require 'codecompanion.adapters'
 
+          ---@type fun(self: CodeCompanion.HTTPAdapter.OpenAIResponses): boolean | boolean
+          local function enable_when_supported(self)
+            local model = self.schema.model.default
+            if model:find 'codex' or model:find 'pro' then return false end
+            return true
+          end
+
           ---@type CodeCompanion.HTTPAdapter.OpenAIResponses
           local config = {
             schema = {
               temperature = {
-                enabled = function()
-                  return false
-                end,
+                enabled = enable_when_supported,
               },
               top_p = {
-                enabled = function()
-                  return false
-                end,
+                enabled = enable_when_supported,
               },
             },
           }
@@ -207,15 +210,23 @@ later(function()
         end,
       },
     },
+    display = {
+      chat = {
+        show_settings = true,
+      },
+    },
     ignore_warnings = true,
     interactions = {
       chat = {
-        adapter = 'opencode',
+        adapter = {
+          name = 'openai_responses',
+          model = 'gpt-5.2-pro',
+        },
       },
       inline = {
         adapter = {
           name = 'openai_responses',
-          model = 'gpt-5.2',
+          model = 'gpt-5.2-codex',
         },
       },
       cmd = {
