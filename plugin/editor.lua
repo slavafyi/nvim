@@ -187,21 +187,51 @@ later(function()
         openai_responses = function()
           local adapters = require 'codecompanion.adapters'
 
-          ---@type fun(self: CodeCompanion.HTTPAdapter.OpenAIResponses): boolean | boolean
-          local function enable_when_supported(self)
-            local model = self.schema.model.default
-            if model:find 'codex' or model:find 'pro' then return false end
-            return true
-          end
-
           ---@type CodeCompanion.HTTPAdapter.OpenAIResponses
           local config = {
             schema = {
+              model = {
+                default = 'gpt-5.2',
+                choices = {
+                  ['gpt-5.2-pro'] = {
+                    formatted_name = 'GPT-5.2 pro',
+                    opts = { has_function_calling = true, can_reason = true, stream = true },
+                  },
+                  ['gpt-5.2-codex'] = {
+                    formatted_name = 'GPT-5.2 codex',
+                    opts = { has_function_calling = true, can_reason = true, stream = true },
+                  },
+                  ['gpt-5.2'] = {
+                    formatted_name = 'GPT-5.2',
+                    opts = { has_function_calling = true, can_reason = true, stream = true },
+                  },
+                  ['gpt-5-nano'] = {
+                    formatted_name = 'GPT-5 nano',
+                    opts = { has_function_calling = true, can_reason = true, stream = true },
+                  },
+                },
+              },
+              ['reasoning.effort'] = {
+                enabled = function(self)
+                  local model = self.schema.model.default
+                  if model:find '5.2' then return true end
+                  return false
+                end,
+                default = 'xhigh',
+              },
               temperature = {
-                enabled = enable_when_supported,
+                enabled = function(self)
+                  local model = self.schema.model.default
+                  if model:find '5' then return false end
+                  return true
+                end,
               },
               top_p = {
-                enabled = enable_when_supported,
+                enabled = function(self)
+                  local model = self.schema.model.default
+                  if model:find '5' then return false end
+                  return true
+                end,
               },
             },
           }
@@ -210,18 +240,10 @@ later(function()
         end,
       },
     },
-    display = {
-      chat = {
-        show_settings = true,
-      },
-    },
     ignore_warnings = true,
     interactions = {
       chat = {
-        adapter = {
-          name = 'openai_responses',
-          model = 'gpt-5.2-pro',
-        },
+        adapter = 'openai_responses',
       },
       inline = {
         adapter = {
@@ -230,9 +252,12 @@ later(function()
         },
       },
       cmd = {
+        adapter = 'openai_responses',
+      },
+      background = {
         adapter = {
           name = 'openai_responses',
-          model = 'gpt-5.2',
+          model = 'gpt-5-nano',
         },
       },
     },
