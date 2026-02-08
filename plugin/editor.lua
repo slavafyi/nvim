@@ -322,3 +322,8 @@ later(function()
 
   vim.cmd 'cab cc CodeCompanion'
 end)
+
+later(function()
+  add 'folke/flash.nvim'
+  require('flash').setup()
+end)
