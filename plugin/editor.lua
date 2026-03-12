@@ -191,18 +191,18 @@ later(function()
           local config = {
             schema = {
               model = {
-                default = 'gpt-5.2',
+                default = 'gpt-5.4',
                 choices = {
-                  ['gpt-5.2-pro'] = {
-                    formatted_name = 'GPT-5.2 pro',
+                  ['gpt-5.4-pro'] = {
+                    formatted_name = 'GPT-5.4 pro',
                     opts = { has_function_calling = true, can_reason = true, stream = true },
                   },
-                  ['gpt-5.2-codex'] = {
-                    formatted_name = 'GPT-5.2 codex',
+                  ['gpt-5.3-codex'] = {
+                    formatted_name = 'GPT-5.3 codex',
                     opts = { has_function_calling = true, can_reason = true, stream = true },
                   },
-                  ['gpt-5.2'] = {
-                    formatted_name = 'GPT-5.2',
+                  ['gpt-5.4'] = {
+                    formatted_name = 'GPT-5.4',
                     opts = { has_function_calling = true, can_reason = true, stream = true },
                   },
                   ['gpt-5-nano'] = {
@@ -214,7 +214,7 @@ later(function()
               ['reasoning.effort'] = {
                 enabled = function(self)
                   local model = self.schema.model.default
-                  if model:find '5.2' then return true end
+                  if model:find '5.3' or model:find '5.4' then return true end
                   return false
                 end,
                 default = 'xhigh',
@@ -246,10 +246,7 @@ later(function()
         adapter = 'openai_responses',
       },
       inline = {
-        adapter = {
-          name = 'openai_responses',
-          model = 'gpt-5.2-codex',
-        },
+        adapter = 'openai_responses',
       },
       cmd = {
         adapter = 'openai_responses',
