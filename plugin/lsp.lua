@@ -20,6 +20,7 @@ local ls_mapping = {
   taplo_ls = 'taplo',
   ts_ls = 'typescript-language-server',
   yaml_ls = 'yaml-language-server',
+  zk_ls = 'zk',
 }
 
 local server_list = {}
@@ -95,7 +96,7 @@ later(function()
   require('mason').setup()
   local registry = require 'mason-registry'
   local packages = { 'black', 'eslint_d', 'nixfmt', 'prettierd' }
-  local excluded_packages = { 'deno', 'gleam', 'nixd', 'ruby-lsp' }
+  local excluded_packages = { 'deno', 'gleam', 'nixd', 'ruby-lsp', 'shopify-cli', 'zk' }
 
   local ensure_installed = vim.tbl_filter(function(name)
     return not vim.tbl_contains(excluded_packages, name)

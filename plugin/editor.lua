@@ -324,3 +324,12 @@ later(function()
   add 'folke/flash.nvim'
   require('flash').setup()
 end)
+
+later(function()
+  add 'zk-org/zk-nvim'
+  require('zk').setup {
+    picker = 'fzf_lua',
+    lsp = { config = { name = 'zk_ls' } },
+  }
+  vim.env.ZK_NOTEBOOK_DIR = vim.env.NOTES_DIR
+end)

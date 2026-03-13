@@ -25,5 +25,6 @@ return {
   undotree = "6fa6b57cda8459e1e4b2ca34df702f55242f4e4d",
   ["vim-fugitive"] = "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0",
   ["vim-wakatime"] = "d7973b157a632d1edeff01818f18d67e584eeaff",
-  ["which-key.nvim"] = "3aab2147e74890957785941f0c1ad87d0a44c15a"
+  ["which-key.nvim"] = "3aab2147e74890957785941f0c1ad87d0a44c15a",
+  ["zk-nvim"] = "dea1ee6cd6d07568c92ea8353063d4d85c58a964"
 }
