@@ -194,51 +194,69 @@ later(function()
         openai_responses = function()
           local adapters = require 'codecompanion.adapters'
 
+          ---@param self CodeCompanion.HTTPAdapter.OpenAIResponses
+          ---@return string
+          local function model_name(self)
+            local model = self.schema.model.default
+            if type(model) == 'function' then model = model() end
+            if type(model) ~= 'string' then return '' end
+            return model
+          end
+
+          ---@param self CodeCompanion.HTTPAdapter.OpenAIResponses
+          ---@return boolean
+          local function allow_sampling(self)
+            return model_name(self):match '^gpt%-5' == nil
+          end
+
+          local function make_reasoning_model(formatted_name)
+            return {
+              formatted_name = formatted_name,
+              opts = {
+                has_function_calling = true,
+                has_vision = true,
+                can_reason = true,
+              },
+            }
+          end
+
           ---@type CodeCompanion.HTTPAdapter.OpenAIResponses
           local config = {
             schema = {
               model = {
                 default = 'gpt-5.4',
                 choices = {
-                  ['gpt-5.4-pro'] = {
-                    formatted_name = 'GPT-5.4 pro',
-                    opts = { has_function_calling = true, can_reason = true, stream = true },
-                  },
-                  ['gpt-5.3-codex'] = {
-                    formatted_name = 'GPT-5.3 codex',
-                    opts = { has_function_calling = true, can_reason = true, stream = true },
-                  },
-                  ['gpt-5.4'] = {
-                    formatted_name = 'GPT-5.4',
-                    opts = { has_function_calling = true, can_reason = true, stream = true },
-                  },
-                  ['gpt-5-nano'] = {
-                    formatted_name = 'GPT-5 nano',
-                    opts = { has_function_calling = true, can_reason = true, stream = true },
-                  },
+                  ['gpt-5.3-codex'] = make_reasoning_model 'GPT-5.3 Codex',
+                  ['gpt-5.4'] = make_reasoning_model 'GPT-5.4',
+                  ['gpt-5.4-pro'] = make_reasoning_model 'GPT-5.4 Pro',
                 },
               },
               ['reasoning.effort'] = {
-                enabled = function(self)
-                  local model = self.schema.model.default
-                  if model:find '5.3' or model:find '5.4' then return true end
-                  return false
+                default = function(self)
+                  local model = model_name(self)
+                  if model == 'gpt-5-nano' then return 'minimal' end
+                  return 'medium'
                 end,
-                default = 'xhigh',
+                choices = {
+                  'none',
+                  'minimal',
+                  'low',
+                  'medium',
+                  'high',
+                  'xhigh',
+                },
+              },
+              ['reasoning.summary'] = {
+                default = nil,
               },
               temperature = {
-                enabled = function(self)
-                  local model = self.schema.model.default
-                  if model:find '5' then return false end
-                  return true
-                end,
+                enabled = allow_sampling,
               },
               top_p = {
-                enabled = function(self)
-                  local model = self.schema.model.default
-                  if model:find '5' then return false end
-                  return true
-                end,
+                enabled = allow_sampling,
+              },
+              top_logprobs = {
+                enabled = allow_sampling,
               },
             },
           }
@@ -247,16 +265,24 @@ later(function()
         end,
       },
     },
-    ignore_warnings = true,
     interactions = {
       chat = {
-        adapter = 'openai_responses',
+        adapter = {
+          name = 'openai_responses',
+          model = 'gpt-5.4',
+        },
       },
       inline = {
-        adapter = 'openai_responses',
+        adapter = {
+          name = 'openai_responses',
+          model = 'gpt-5.3-codex',
+        },
       },
       cmd = {
-        adapter = 'openai_responses',
+        adapter = {
+          name = 'openai_responses',
+          model = 'gpt-5.3-codex',
+        },
       },
       background = {
         adapter = {
