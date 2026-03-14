@@ -118,7 +118,10 @@ end)
 
 now(function()
   add 'ibhagwan/fzf-lua'
-  require('fzf-lua').setup {
+
+  local fzf_lua = require 'fzf-lua'
+
+  fzf_lua.setup {
     grep = {
       hidden = true,
     },
@@ -137,6 +140,10 @@ now(function()
       include_current_session = true,
     },
   }
+
+  fzf_lua.register_ui_select()
+
+  vim.cmd 'cab fzf FzfLua'
 end)
 
 later(function()
