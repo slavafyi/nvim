@@ -110,6 +110,7 @@ now(function()
   require('snacks').setup {
     bigfile = {},
     image = {},
+    picker = {},
     words = {
       modes = { 'n' },
     },
@@ -117,33 +118,18 @@ now(function()
 end)
 
 now(function()
-  add 'ibhagwan/fzf-lua'
-
-  local fzf_lua = require 'fzf-lua'
-
-  fzf_lua.setup {
-    grep = {
-      hidden = true,
-    },
-    keymap = {
-      builtin = {
-        ['<M-p>'] = 'preview-page-up',
-        ['<M-n>'] = 'preview-page-down',
-        ['<M-S-p>'] = 'preview-up',
-        ['<M-S-n>'] = 'preview-down',
-      },
-      fzf = {
-        ['ctrl-q'] = 'select-all+accept',
-      },
-    },
-    oldfiles = {
-      include_current_session = true,
+  add {
+    source = 'dmtrKovalenko/fff.nvim',
+    hooks = {
+      post_checkout = function()
+        require('fff.download').download_or_build_binary()
+      end,
     },
   }
 
-  fzf_lua.register_ui_select()
-
-  vim.cmd 'cab fzf FzfLua'
+  require('fff').setup {
+    lazy_sync = true,
+  }
 end)
 
 later(function()
@@ -361,7 +347,7 @@ end)
 later(function()
   add 'zk-org/zk-nvim'
   require('zk').setup {
-    picker = 'fzf_lua',
+    picker = 'snacks_picker',
     lsp = { config = { name = 'zk_ls' } },
   }
   vim.env.ZK_NOTEBOOK_DIR = vim.env.NOTES_DIR
