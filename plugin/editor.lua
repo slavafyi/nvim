@@ -109,6 +109,7 @@ now(function()
   add 'folke/snacks.nvim'
   require('snacks').setup {
     bigfile = {},
+    input = {},
     image = {},
     picker = {},
     words = {
