@@ -111,7 +111,16 @@ now(function()
     bigfile = {},
     input = {},
     image = {},
-    picker = {},
+    notifier = {},
+    picker = {
+      layouts = {
+        vertical = {
+          layout = {
+            min_height = 15,
+          },
+        },
+      },
+    },
     words = {
       modes = { 'n' },
     },
