@@ -111,7 +111,9 @@ now(function()
     bigfile = {},
     input = {},
     image = {},
-    notifier = {},
+    notifier = {
+      style = 'fancy',
+    },
     picker = {
       layouts = {
         vertical = {
