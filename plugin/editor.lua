@@ -148,33 +148,6 @@ end)
 
 later(function()
   add {
-    source = 'zbirenbaum/copilot.lua',
-  }
-  require('copilot').setup {
-    filetypes = {
-      ['*'] = true,
-    },
-    panel = {
-      enabled = true,
-    },
-    suggestion = {
-      enabled = true,
-      keymap = {
-        accept = '<Tab>',
-        accept_line = '<M-l>',
-        next = '<M-]>',
-        prev = '<M-[>',
-        dismiss = '<Esc>',
-      },
-    },
-    nes = {
-      enabled = false,
-    },
-  }
-end)
-
-later(function()
-  add {
     source = 'olimorris/codecompanion.nvim',
     depends = {
       'nvim-lua/plenary.nvim',
@@ -347,6 +320,37 @@ later(function()
   })
 
   vim.cmd 'cab cc CodeCompanion'
+end)
+
+later(function()
+  add {
+    source = 'milanglacier/minuet-ai.nvim',
+    depends = {
+      'nvim-lua/plenary.nvim',
+    },
+  }
+  require('minuet').setup {
+    context_window = 10000,
+    debounce = 200,
+    throttle = 500,
+    provider = 'openai',
+    provider_options = {
+      openai = {
+        model = 'gpt-5.4-mini',
+      },
+    },
+    virtualtext = {
+      auto_trigger_ft = {},
+      keymap = {
+        accept = '<Tab>',
+        accept_line = '<A-l>',
+        accept_n_lines = '<A-z>',
+        prev = '<A-[>',
+        next = '<A-]>',
+        dismiss = '<A-e>',
+      },
+    },
+  }
 end)
 
 later(function()
