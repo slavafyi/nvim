@@ -41,9 +41,12 @@ vim.keymap.set('n', ']h', '<Cmd>Gitsigns next_hunk<Cr>', { desc = 'Gitsigns next
 vim.keymap.set('n', '[r', '<Cmd>lua Snacks.words.jump(-vim.v.count1)<Cr>', { desc = 'Previous reference' })
 vim.keymap.set('n', ']r', '<Cmd>lua Snacks.words.jump(vim.v.count1)<Cr>', { desc = 'Next reference' })
 vim.keymap.set('n', '<Leader>p', '<Cmd>lua require("fff").find_files()<Cr>', { desc = 'Search and open files' })
+vim.keymap.set('n', '<Leader>/', '<Cmd>lua require("fff").live_grep()<Cr>', { desc = 'Live grep search' })
+vim.keymap.set('n', '<Leader>?', '<Cmd>lua require("fff").live_grep({ query = vim.fn.expand "<cword>" })<Cr>', { desc = 'Search for the word under cursor' })
 vim.keymap.set('n', '<Leader>o', '<Cmd>lua Snacks.picker.recent()<Cr>', { desc = 'Browse recently opened files' })
 vim.keymap.set('n', '<Leader>r', '<Cmd>lua Snacks.picker.resume()<Cr>', { desc = 'Resume last command/query' })
 vim.keymap.set('n', '<Leader><Leader>', '<Cmd>lua Snacks.picker.buffers()<Cr>', { desc = 'List all open buffers' })
-vim.keymap.set('n', '<Leader>/', '<Cmd>lua require("fff").live_grep()<Cr>', { desc = 'Live grep search' })
-vim.keymap.set('n', '<Leader>?', '<Cmd>lua require("fff").live_grep({ query = vim.fn.expand "<cword>" })<Cr>', { desc = 'Search for the word under cursor' })
+
+vim.keymap.set('n', '<Leader>n', '<Cmd>lua Snacks.notifier.show_history()<Cr>', { desc = 'Show notification history' })
+vim.keymap.set('n', '<Leader>c', '<Cmd>Minuet virtualtext toggle<Cr>', { desc = 'Toggle code completion' })
 -- stylua: ignore end
