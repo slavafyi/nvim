@@ -146,6 +146,7 @@ end)
 
 later(function()
   add 'wakatime/vim-wakatime'
+  vim.g.wakatime_ai_detected = 0
 end)
 
 later(function()
