@@ -8,6 +8,7 @@ end)
 later(function()
   add {
     source = 'nvim-treesitter/nvim-treesitter',
+    checkout = 'main',
     hooks = {
       post_checkout = function()
         vim.cmd.TSUpdate()
@@ -15,17 +16,58 @@ later(function()
     },
   }
 
-  require('nvim-treesitter.configs').setup {
-    auto_install = true,
-    ensure_installed = {
-      'lua',
-      'luadoc',
-      'vim',
-      'vimdoc',
-    },
-    highlight = { enable = true },
-    indent = { enable = true },
+  local ensure_languages = {
+    'astro',
+    'bash',
+    'c',
+    'cpp',
+    'css',
+    'dockerfile',
+    'ecma',
+    'editorconfig',
+    'fish',
+    'git_config',
+    'git_rebase',
+    'gitcommit',
+    'gitignore',
+    'go',
+    'html',
+    'html_tags',
+    'ini',
+    'javascript',
+    'jsdoc',
+    'json',
+    'jsx',
+    'liquid',
+    'lua',
+    'luadoc',
+    'markdown',
+    'markdown_inline',
+    'python',
+    'rust',
+    'ssh_config',
+    'tmux',
+    'toml',
+    'tsx',
+    'typescript',
+    'vim',
+    'vimdoc',
+    'yaml',
   }
+
+  local treesitter = require 'nvim-treesitter'
+  treesitter.install(ensure_languages)
+
+  local filetypes =
+    vim.iter(ensure_languages):map(vim.treesitter.language.get_filetypes):flatten():totable()
+
+  vim.api.nvim_create_autocmd({ 'BufRead', 'FileType' }, {
+    pattern = filetypes,
+    callback = function(args)
+      vim.treesitter.start(args.buf)
+    end,
+    desc = 'Enable nvim-treesitter and install parser if not installed',
+  })
 end)
 
 later(function()
