@@ -1,4 +1,5 @@
-local add, later, now = MiniDeps.add, MiniDeps.later, MiniDeps.now
+local add = vim.pack.add
+local later, nmap = Config.later, Config.nmap
 
 local ls_mapping = {
   ansible_ls = 'ansible-language-server',
@@ -80,18 +81,14 @@ local function on_attach(client, bufnr)
   setup_diagnostic()
 end
 
-vim.api.nvim_create_autocmd('LspAttach', {
-  desc = 'Configure LSP clients',
-  group = vim.api.nvim_create_augroup('configure-lsp-clients', { clear = true }),
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client == nil then return end
-    on_attach(client, args.buf)
-  end,
-})
+Config.new_autocmd('LspAttach', function(args)
+  local client = vim.lsp.get_client_by_id(args.data.client_id)
+  if client == nil then return end
+  on_attach(client, args.buf)
+end, 'Configure LSP clients')
 
 later(function()
-  add 'williamboman/mason.nvim'
+  add { 'https://github.com/williamboman/mason.nvim' }
   require('mason').setup()
   local registry = require 'mason-registry'
   local packages = { 'black', 'eslint_d', 'nixfmt', 'prettierd' }
@@ -110,14 +107,14 @@ later(function()
 end)
 
 later(function()
-  add 'icholy/lsplinks.nvim'
+  add { 'https://github.com/icholy/lsplinks.nvim' }
   local lsplinks = require 'lsplinks'
   lsplinks.setup()
-  vim.keymap.set('n', 'gx', lsplinks.gx, { desc = 'Open file using LSP document links' })
+  nmap('gx', lsplinks.gx, 'Open file using LSP document links')
 end)
 
 later(function()
-  add 'esmuellert/nvim-eslint'
+  add { 'https://github.com/esmuellert/nvim-eslint' }
   require('nvim-eslint').setup {
     workingDirectory = function(bufnr)
       return { directory = vim.fs.root(bufnr, { 'package.json' }) }
@@ -126,8 +123,10 @@ later(function()
 end)
 
 later(function()
-  add 'folke/lazydev.nvim'
-  add 'b0o/SchemaStore.nvim'
+  add {
+    'https://github.com/folke/lazydev.nvim',
+    'https://github.com/b0o/SchemaStore.nvim',
+  }
 
   local lazydev = require 'lazydev'
   local schemastore = require 'schemastore'

@@ -1,19 +1,24 @@
-local add, later, now = MiniDeps.add, MiniDeps.later, MiniDeps.now
+local add = vim.pack.add
+local later, imap, smap = Config.later, Config.imap, Config.smap
 
 later(function()
   add {
-    source = 'slavafyi/friendly-snippets',
-    checkout = 'feature/liquid-update',
-  }
-
-  add {
-    source = 'saghen/blink.cmp',
-    depends = {
-      'L3MON4D3/LuaSnip',
-      'ribru17/blink-cmp-spell',
-      'moyiz/blink-emoji.nvim',
+    {
+      src = 'https://github.com/slavafyi/friendly-snippets',
+      version = 'feature/liquid-update',
     },
-    checkout = 'v1.10.1',
+  }
+end)
+
+later(function()
+  add {
+    {
+      src = 'https://github.com/saghen/blink.cmp',
+      version = 'v1.10.1',
+    },
+    'https://github.com/L3MON4D3/LuaSnip',
+    'https://github.com/ribru17/blink-cmp-spell',
+    'https://github.com/moyiz/blink-emoji.nvim',
   }
 
   require('blink.cmp').setup {
@@ -102,7 +107,6 @@ later(function()
   luasnip_vscode.lazy_load()
 
   local ls = require 'luasnip'
-  local modes = { 'i', 's' }
 
   local function change_choice(delta)
     return function()
@@ -111,6 +115,8 @@ later(function()
     end
   end
 
-  vim.keymap.set(modes, '<C-n>', change_choice(1), { desc = 'Next choice' })
-  vim.keymap.set(modes, '<C-p>', change_choice(-1), { desc = 'Prev choice' })
+  imap('<C-n>', change_choice(1), 'Next choice')
+  smap('<C-n>', change_choice(1), 'Next choice')
+  imap('<C-p>', change_choice(-1), 'Prev choice')
+  smap('<C-p>', change_choice(-1), 'Prev choice')
 end)
