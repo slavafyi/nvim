@@ -3,6 +3,8 @@ local add = vim.pack.add
 local now = Config.now
 local now_if_args = Config.now_if_args
 local later = Config.later
+local new_autocmd = Config.new_autocmd
+local on_packchanged = Config.on_packchanged
 local nmap_leader = Config.nmap_leader
 local xmap_leader = Config.xmap_leader
 
@@ -21,7 +23,7 @@ now_if_args(function()
     vim.cmd 'TSUpdate'
   end
 
-  Config.on_packchanged('nvim-treesitter', { 'update' }, ts_update, ':TSUpdate')
+  on_packchanged('nvim-treesitter', { 'update' }, ts_update, ':TSUpdate')
 
   local languages = {
     'astro',
@@ -80,7 +82,7 @@ now_if_args(function()
     vim.treesitter.start(ev.buf)
   end
 
-  Config.new_autocmd('FileType', ts_start, 'Start tree-sitter', filetypes)
+  new_autocmd('FileType', ts_start, 'Start tree-sitter', filetypes)
 end)
 
 later(function()
@@ -200,39 +202,21 @@ now(function()
     require('fff.download').download_or_build_binary()
   end
 
-  Config.on_packchanged('fff.nvim', { 'install', 'update' }, fff_build, 'FFF build')
+  on_packchanged('fff.nvim', { 'install', 'update' }, fff_build, 'FFF build')
 
   fff.setup { lazy_sync = true }
 
   vim.api.nvim_create_user_command('FFFLiveGrep', function(opts)
-    local args = vim.trim(opts.args or '')
-    local query
+    local query = vim.trim(opts.args)
 
-    if args == '' then
+    if query == '<cword>' then query = vim.fn.expand '<cword>' end
+    if query == '' then
       fff.live_grep()
       return
     end
 
-    query = args:match '^query=(.*)$'
-    if not query then
-      vim.notify('FFFLiveGrep: expected query=...', vim.log.levels.ERROR)
-      return
-    end
-
-    query = vim.trim(query)
-    if query == '<cword>' then query = vim.fn.expand '<cword>' end
-
     fff.live_grep { query = query }
-  end, {
-    nargs = '*',
-    desc = 'Live grep with optional query=...',
-    complete = function(ArgLead)
-      local candidates = { 'query=', 'query=<cword>' }
-      return vim.tbl_filter(function(item)
-        return item:sub(1, #ArgLead) == ArgLead
-      end, candidates)
-    end,
-  })
+  end, { nargs = '*', desc = 'Live grep with optional query' })
 end)
 
 later(function()
@@ -383,7 +367,7 @@ later(function()
         handle:finish()
       end
 
-      Config.new_autocmd('User', function(args)
+      new_autocmd('User', function(args)
         local id = args.data.id
         handles[id] = progress.handle.create {
           title = '',
@@ -392,7 +376,7 @@ later(function()
         }
       end, nil, 'CodeCompanionRequestStarted')
 
-      Config.new_autocmd('User', function(args)
+      new_autocmd('User', function(args)
         local id = args.data.id
         local handle = handles[id]
         handles[id] = nil

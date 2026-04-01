@@ -1,6 +1,7 @@
 local add = vim.pack.add
 
 local later = Config.later
+local new_autocmd = Config.new_autocmd
 local nmap = Config.nmap
 
 local ls_mapping = {
@@ -83,7 +84,7 @@ local function on_attach(client, bufnr)
   setup_diagnostic()
 end
 
-Config.new_autocmd('LspAttach', function(args)
+new_autocmd('LspAttach', function(args)
   local client = vim.lsp.get_client_by_id(args.data.client_id)
   if client == nil then return end
   on_attach(client, args.buf)
