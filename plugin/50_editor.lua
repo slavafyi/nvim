@@ -191,18 +191,16 @@ end)
 now(function()
   add { 'https://github.com/dmtrKovalenko/fff.nvim' }
 
+  local fff = require 'fff'
   local fff_build = function()
     require('fff.download').download_or_build_binary()
   end
 
-  Config.on_packchanged('fff', { 'install', 'update' }, fff_build, 'FFF build')
+  Config.on_packchanged('fff.nvim', { 'install', 'update' }, fff_build, 'FFF build')
 
-  require('fff').setup {
-    lazy_sync = true,
-  }
+  fff.setup { lazy_sync = true }
 
   vim.api.nvim_create_user_command('FFFLiveGrep', function(opts)
-    local fff = require 'fff'
     local args = vim.trim(opts.args or '')
     local query
 

@@ -6,7 +6,7 @@ I've tried many different Neovim configs and IDE-like setups. But I quickly real
 
 ## Prerequisites
 
-* [Neovim](https://neovim.io/doc) ≥ v0.9.0
+* [Neovim](https://neovim.io/doc) ≥ v0.12.0
 * [git](https://git-scm.com/) ≥ 2.19.0
 * [fd](https://github.com/sharkdp/fd)
 * [ripgrep](https://github.com/BurntSushi/ripgrep)
@@ -24,3 +24,10 @@ I've tried many different Neovim configs and IDE-like setups. But I quickly real
 2. Run `nvim`
 
    It is highly recommended that you run `:checkhealth` to ensure that your system is healthy.
+
+## Inspiration
+
+The Neovim `v0.12` / `vim.pack` version of this config (structure and ideas) is inspired by MiniMax by Evgeni Chasnovski:
+
+* https://nvim-mini.org/MiniMax/
+* https://github.com/nvim-mini/MiniMax

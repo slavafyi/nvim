@@ -85,7 +85,8 @@ later(function()
           opts = {
             enable_in_context = function()
               local curpos = vim.api.nvim_win_get_cursor(0)
-              local captures = vim.treesitter.get_captures_at_pos(0, curpos[1] - 1, curpos[2] - 1)
+              -- `win_get_cursor()` returns 1-based row and 0-based column.
+              local captures = vim.treesitter.get_captures_at_pos(0, curpos[1] - 1, curpos[2])
               local in_spell_capture = false
               for _, cap in ipairs(captures) do
                 if cap.capture == 'spell' then

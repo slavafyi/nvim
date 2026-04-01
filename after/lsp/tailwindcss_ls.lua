@@ -116,6 +116,8 @@ return {
       '.git',
     }
     local fname = vim.api.nvim_buf_get_name(bufnr)
-    on_dir(vim.fs.dirname(vim.fs.find(root_files, { path = fname, upward = true })[1]))
+    local found = vim.fs.find(root_files, { path = fname, upward = true })[1]
+    if found == nil then return end
+    on_dir(vim.fs.dirname(found))
   end,
 }

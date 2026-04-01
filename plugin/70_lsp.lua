@@ -59,7 +59,7 @@ local function on_attach(client, bufnr)
     keymap('n', '<Leader>i', function()
       vim.lsp.inlay_hint.enable(
         not vim.lsp.inlay_hint.is_enabled { bufnr = bufnr },
-        { buf = bufnr }
+        { bufnr = bufnr }
       )
     end, 'LSP toggle inlay hint')
   end
@@ -94,12 +94,15 @@ later(function()
   local packages = { 'black', 'eslint_d', 'nixfmt', 'prettierd' }
   local excluded_packages = { 'deno', 'gleam', 'nixd', 'ruby-lsp', 'shopify-cli', 'zk' }
 
-  local ensure_installed = vim.tbl_filter(function(name)
+  local ensure_installed = vim.tbl_values(ls_mapping)
+  vim.list_extend(ensure_installed, packages)
+  ensure_installed = vim.tbl_filter(function(name)
     return not vim.tbl_contains(excluded_packages, name)
-  end, vim.list_extend(ls_mapping, packages))
+  end, ensure_installed)
+  table.sort(ensure_installed)
 
   registry.refresh(function()
-    for _, pkg_name in pairs(ensure_installed) do
+    for _, pkg_name in ipairs(ensure_installed) do
       local pkg = registry.get_package(pkg_name)
       if not pkg:is_installed() then pkg:install() end
     end
