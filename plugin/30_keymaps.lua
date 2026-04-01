@@ -1,11 +1,10 @@
-local nmap, imap, vmap, xmap, nmap_leader, vmap_leader, xmap_leader =
-  Config.nmap,
-  Config.imap,
-  Config.vmap,
-  Config.xmap,
-  Config.nmap_leader,
-  Config.vmap_leader,
-  Config.xmap_leader
+local nmap = Config.nmap
+local imap = Config.imap
+local vmap = Config.vmap
+local xmap = Config.xmap
+local nmap_leader = Config.nmap_leader
+local vmap_leader = Config.vmap_leader
+local xmap_leader = Config.xmap_leader
 
 imap('jk', '<Esc>', 'Esc')
 nmap('<Esc>', '<Cmd>noh<Cr><Esc>', 'Clear search')

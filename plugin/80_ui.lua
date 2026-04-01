@@ -1,5 +1,7 @@
 local add = vim.pack.add
-local later, now = Config.later, Config.now
+
+local later = Config.later
+local now = Config.now
 
 now(function()
   add { 'https://github.com/pappasam/papercolor-theme-slim' }

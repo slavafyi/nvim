@@ -1,6 +1,10 @@
 local add = vim.pack.add
-local now, now_if_args, later = Config.now, Config.now_if_args, Config.later
-local nmap_leader, xmap_leader = Config.nmap_leader, Config.xmap_leader
+
+local now = Config.now
+local now_if_args = Config.now_if_args
+local later = Config.later
+local nmap_leader = Config.nmap_leader
+local xmap_leader = Config.xmap_leader
 
 later(function()
   add { 'https://github.com/mbbill/undotree' }

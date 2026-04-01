@@ -1,5 +1,8 @@
 local add = vim.pack.add
-local later, imap, smap = Config.later, Config.imap, Config.smap
+
+local later = Config.later
+local imap = Config.imap
+local smap = Config.smap
 
 later(function()
   add {

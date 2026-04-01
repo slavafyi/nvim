@@ -1,5 +1,7 @@
 local add = vim.pack.add
-local later, nmap = Config.later, Config.nmap
+
+local later = Config.later
+local nmap = Config.nmap
 
 local ls_mapping = {
   ansible_ls = 'ansible-language-server',
