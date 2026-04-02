@@ -82,7 +82,7 @@ now_if_args(function()
     vim.treesitter.start(ev.buf)
   end
 
-  new_autocmd('FileType', ts_start, 'Start tree-sitter', filetypes)
+  new_autocmd('FileType', ts_start, { desc = 'Start tree-sitter', pattern = filetypes })
 end)
 
 later(function()
@@ -374,14 +374,14 @@ later(function()
           message = messages.started,
           lsp_client = { name = adapter_label(args.data.adapter) },
         }
-      end, nil, 'CodeCompanionRequestStarted')
+      end, { pattern = 'CodeCompanionRequestStarted' })
 
       new_autocmd('User', function(args)
         local id = args.data.id
         local handle = handles[id]
         handles[id] = nil
         if handle then finish(handle, args.data.status) end
-      end, nil, 'CodeCompanionRequestFinished')
+      end, { pattern = 'CodeCompanionRequestFinished' })
     end,
   })
 

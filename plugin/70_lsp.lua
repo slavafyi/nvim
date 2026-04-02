@@ -88,7 +88,7 @@ new_autocmd('LspAttach', function(args)
   local client = vim.lsp.get_client_by_id(args.data.client_id)
   if client == nil then return end
   on_attach(client, args.buf)
-end, 'Configure LSP clients')
+end, { desc = 'Configure LSP clients' })
 
 later(function()
   add { 'https://github.com/williamboman/mason.nvim' }
