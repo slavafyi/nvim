@@ -14,6 +14,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 4
 vim.opt.sidescrolloff = 4
+vim.opt.smartcase = true
 vim.opt.smartindent = true
 vim.opt.smoothscroll = true
 vim.opt.spell = true
