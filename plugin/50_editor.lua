@@ -1,6 +1,5 @@
 local add = vim.pack.add
 
-local now = Config.now
 local now_if_args = Config.now_if_args
 local later = Config.later
 local new_autocmd = Config.new_autocmd
@@ -31,6 +30,7 @@ now_if_args(function()
     'c',
     'cpp',
     'css',
+    'diff',
     'dockerfile',
     'ecma',
     'editorconfig',
@@ -47,6 +47,7 @@ now_if_args(function()
     'jsdoc',
     'json',
     'jsx',
+    'latex',
     'liquid',
     'lua',
     'luadoc',
@@ -54,13 +55,17 @@ now_if_args(function()
     'markdown_inline',
     'python',
     'rust',
+    'scss',
     'ssh_config',
+    'svelte',
     'tmux',
     'toml',
     'tsx',
     'typescript',
+    'typst',
     'vim',
     'vimdoc',
+    'vue',
     'yaml',
   }
 
