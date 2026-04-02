@@ -55,6 +55,23 @@ Config.lsp_includeexpr = function()
   return vim.v.fname
 end
 
+Config.statusline_activity = function()
+  local winid = vim.g.statusline_winid or vim.api.nvim_get_current_win()
+  local bufnr = vim.api.nvim_win_get_buf(winid)
+  local parts = {}
+
+  if winid == tonumber(vim.g.actual_curwin or -1) then
+    local progress = vim.trim(vim.ui.progress_status())
+    if progress ~= '' then parts[#parts + 1] = progress end
+  end
+
+  if vim.bo[bufnr].busy > 0 then parts[#parts + 1] = '◐' end
+  if next(vim.diagnostic.count(bufnr)) then parts[#parts + 1] = vim.diagnostic.status(bufnr) end
+
+  if #parts == 0 then return '' end
+  return table.concat(parts, ' ') .. ' '
+end
+
 local gr = vim.api.nvim_create_augroup('custom-config', { clear = true })
 
 ---@param event string|string[]

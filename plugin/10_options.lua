@@ -13,6 +13,7 @@ vim.opt.listchars = { space = '·', tab = '▸ ' }
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 4
+vim.opt.showcmdloc = 'statusline'
 vim.opt.sidescrolloff = 4
 vim.opt.smartcase = true
 vim.opt.smartindent = true
@@ -21,7 +22,7 @@ vim.opt.spell = true
 vim.opt.spelllang = 'ru_ru,en_us'
 vim.opt.splitbelow = true
 vim.opt.splitright = true
-vim.opt.statusline = '%f %m %= %Y %p%% %l:%c'
+vim.opt.statusline = '%f %m %= %{%v:lua.Config.statusline_activity()%}%S %Y %p%% %l:%c'
 vim.opt.swapfile = false
 vim.opt.termguicolors = true
 vim.opt.textwidth = 80
