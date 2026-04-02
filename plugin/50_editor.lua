@@ -392,7 +392,7 @@ later(function()
     virtualtext = {
       auto_trigger_ft = {},
       keymap = {
-        accept = '<Tab>',
+        accept = '<A-y>',
         accept_line = '<A-l>',
         accept_n_lines = '<A-z>',
         prev = '<A-[>',
