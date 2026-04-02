@@ -1,6 +1,5 @@
 local nmap = Config.nmap
 local imap = Config.imap
-local vmap = Config.vmap
 local xmap = Config.xmap
 local nmap_leader = Config.nmap_leader
 local vmap_leader = Config.vmap_leader
@@ -16,8 +15,8 @@ vmap_leader('Y', '"+Y', 'Copy line clipboard')
 xmap_leader('p', '"_dP', 'Paste keep register')
 nmap('<Backspace>', '"_dh', 'Delete left (blackhole)')
 xmap('<Backspace>', '"_d', 'Delete selection (blackhole)')
-vmap('J', ":m '>+1<Cr>gv=gv", 'Move down')
-vmap('K', ":m '>-2<Cr>gv=gv", 'Move up')
+xmap('J', ":m '>+1<Cr>gv=gv", 'Move down')
+xmap('K', ":m '<-2<Cr>gv=gv", 'Move up')
 
 nmap('л', 'gk', 'Up')
 nmap('о', 'gj', 'Down')
