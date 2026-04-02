@@ -54,6 +54,10 @@ local function on_attach(client, bufnr)
     vim.bo[bufnr].formatexpr = 'v:lua.vim.lsp.formatexpr()'
   end
 
+  if client:supports_method 'textDocument/documentLink' then
+    vim.bo[bufnr].includeexpr = 'v:lua.Config.lsp_includeexpr()'
+  end
+
   if
     vim.lsp.inlay_hint
     and vim.api.nvim_buf_is_valid(bufnr)
@@ -111,13 +115,6 @@ later(function()
       if not pkg:is_installed() then pkg:install() end
     end
   end)
-end)
-
-later(function()
-  add { 'https://github.com/icholy/lsplinks.nvim' }
-  local lsplinks = require 'lsplinks'
-  lsplinks.setup()
-  nmap('gx', lsplinks.gx, 'Open file using LSP document links')
 end)
 
 later(function()

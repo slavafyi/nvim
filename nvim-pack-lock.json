@@ -58,10 +58,6 @@
       "rev": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d",
       "src": "https://github.com/folke/lazydev.nvim"
     },
-    "lsplinks.nvim": {
-      "rev": "94d729170e95298ce86ba41ef66f8756f6062b34",
-      "src": "https://github.com/icholy/lsplinks.nvim"
-    },
     "mason.nvim": {
       "rev": "44d1e90e1f66e077268191e3ee9d2ac97cc18e65",
       "src": "https://github.com/williamboman/mason.nvim"

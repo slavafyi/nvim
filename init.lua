@@ -49,6 +49,12 @@ Config.apply_colorscheme = function()
   if scheme and scheme ~= '' then vim.cmd.colorscheme(scheme) end
 end
 
+Config.lsp_includeexpr = function()
+  local target = vim.ui._get_urls()[1]
+  if target and not target:match '^%w+:' then return target end
+  return vim.v.fname
+end
+
 local gr = vim.api.nvim_create_augroup('custom-config', { clear = true })
 
 ---@param event string|string[]
