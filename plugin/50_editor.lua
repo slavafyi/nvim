@@ -1,22 +1,31 @@
-local add, later, now = MiniDeps.add, MiniDeps.later, MiniDeps.now
+local add = vim.pack.add
+
+local now = Config.now
+local now_if_args = Config.now_if_args
+local later = Config.later
+local new_autocmd = Config.new_autocmd
+local on_packchanged = Config.on_packchanged
+local nmap_leader = Config.nmap_leader
+local xmap_leader = Config.xmap_leader
 
 later(function()
-  add 'mbbill/undotree'
+  add { 'https://github.com/mbbill/undotree' }
   vim.g.undotree_SetFocusWhenToggle = 1
 end)
 
-later(function()
+now_if_args(function()
   add {
-    source = 'nvim-treesitter/nvim-treesitter',
-    checkout = 'main',
-    hooks = {
-      post_checkout = function()
-        vim.cmd.TSUpdate()
-      end,
-    },
+    { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
+    'https://github.com/nvim-treesitter/nvim-treesitter-textobjects',
   }
 
-  local ensure_languages = {
+  local ts_update = function()
+    vim.cmd 'TSUpdate'
+  end
+
+  on_packchanged('nvim-treesitter', { 'update' }, ts_update, ':TSUpdate')
+
+  local languages = {
     'astro',
     'bash',
     'c',
@@ -55,23 +64,29 @@ later(function()
     'yaml',
   }
 
-  local treesitter = require 'nvim-treesitter'
-  treesitter.install(ensure_languages)
+  local isnt_installed = function(lang)
+    return #vim.api.nvim_get_runtime_file('parser/' .. lang .. '.*', false) == 0
+  end
 
-  local filetypes =
-    vim.iter(ensure_languages):map(vim.treesitter.language.get_filetypes):flatten():totable()
+  local to_install = vim.tbl_filter(isnt_installed, languages)
+  if #to_install > 0 then require('nvim-treesitter').install(to_install) end
 
-  vim.api.nvim_create_autocmd({ 'BufRead', 'FileType' }, {
-    pattern = filetypes,
-    callback = function(args)
-      vim.treesitter.start(args.buf)
-    end,
-    desc = 'Enable nvim-treesitter and install parser if not installed',
-  })
+  local filetypes = {}
+  for _, lang in ipairs(languages) do
+    for _, ft in ipairs(vim.treesitter.language.get_filetypes(lang)) do
+      table.insert(filetypes, ft)
+    end
+  end
+
+  local ts_start = function(ev)
+    vim.treesitter.start(ev.buf)
+  end
+
+  new_autocmd('FileType', ts_start, { desc = 'Start tree-sitter', pattern = filetypes })
 end)
 
 later(function()
-  add 'stevearc/oil.nvim'
+  add { 'https://github.com/stevearc/oil.nvim' }
   require('oil').setup {
     default_file_explorer = false,
     delete_to_trash = true,
@@ -90,9 +105,11 @@ later(function()
 end)
 
 later(function()
-  add 'stevearc/conform.nvim'
+  add { 'https://github.com/stevearc/conform.nvim' }
+
   local conform = require 'conform'
   local conform_util = require 'conform.util'
+
   conform.formatters.prettierd_js = {
     inherit = 'prettierd',
     condition = conform_util.root_file {
@@ -100,10 +117,12 @@ later(function()
       'node_modules/eslint-config-prettier',
     },
   }
+
   conform.formatters.prettierd_css = {
     inherit = 'prettierd',
     condition = conform_util.root_file { 'node_modules/stylelint-prettier' },
   }
+
   conform.setup {
     default_format_opts = {
       lsp_format = 'fallback',
@@ -127,13 +146,17 @@ later(function()
     },
     log_level = vim.log.levels.DEBUG,
   }
-  vim.keymap.set({ 'n', 'x' }, '<Leader>f', function()
+
+  local format = function()
     conform.format { async = true }
-  end, { desc = 'Format document' })
+  end
+
+  nmap_leader('f', format, 'Format document')
+  xmap_leader('f', format, 'Format document')
 end)
 
 later(function()
-  add 'folke/which-key.nvim'
+  add { 'https://github.com/folke/which-key.nvim' }
   require('which-key').setup {
     icons = {
       colors = false,
@@ -147,8 +170,8 @@ later(function()
   }
 end)
 
-now(function()
-  add 'folke/snacks.nvim'
+now_if_args(function()
+  add { 'https://github.com/folke/snacks.nvim' }
   require('snacks').setup {
     bigfile = {},
     input = {},
@@ -165,39 +188,48 @@ now(function()
         },
       },
     },
+    quickfile = {},
     words = {
       modes = { 'n' },
     },
   }
 end)
 
-now(function()
-  add {
-    source = 'dmtrKovalenko/fff.nvim',
-    hooks = {
-      post_checkout = function()
-        require('fff.download').download_or_build_binary()
-      end,
-    },
-  }
+later(function()
+  add { 'https://github.com/dmtrKovalenko/fff.nvim' }
 
-  require('fff').setup {
-    lazy_sync = true,
-  }
+  local fff = require 'fff'
+  local fff_build = function()
+    require('fff.download').download_or_build_binary()
+  end
+
+  on_packchanged('fff.nvim', { 'install', 'update' }, fff_build, 'FFF build')
+
+  fff.setup { lazy_sync = true }
+
+  vim.api.nvim_create_user_command('FFFLiveGrep', function(opts)
+    local query = vim.trim(opts.args)
+
+    if query == '<cword>' then query = vim.fn.expand '<cword>' end
+    if query == '' then
+      fff.live_grep()
+      return
+    end
+
+    fff.live_grep { query = query }
+  end, { nargs = '*', desc = 'Live grep with optional query' })
 end)
 
 later(function()
-  add 'wakatime/vim-wakatime'
+  add { 'https://github.com/wakatime/vim-wakatime' }
   vim.g.wakatime_ai_detected = 0
 end)
 
 later(function()
   add {
-    source = 'olimorris/codecompanion.nvim',
-    depends = {
-      'nvim-lua/plenary.nvim',
-      'j-hui/fidget.nvim',
-    },
+    'https://github.com/olimorris/codecompanion.nvim',
+    'https://github.com/nvim-lua/plenary.nvim',
+    'https://github.com/j-hui/fidget.nvim',
   }
 
   local codecompanion = require 'codecompanion'
@@ -336,31 +368,21 @@ later(function()
         handle:finish()
       end
 
-      local group = vim.api.nvim_create_augroup('codecompanion-spinner', {})
+      new_autocmd('User', function(args)
+        local id = args.data.id
+        handles[id] = progress.handle.create {
+          title = '',
+          message = messages.started,
+          lsp_client = { name = adapter_label(args.data.adapter) },
+        }
+      end, { pattern = 'CodeCompanionRequestStarted' })
 
-      vim.api.nvim_create_autocmd('User', {
-        pattern = 'CodeCompanionRequestStarted',
-        group = group,
-        callback = function(args)
-          local id = args.data.id
-          handles[id] = progress.handle.create {
-            title = '',
-            message = messages.started,
-            lsp_client = { name = adapter_label(args.data.adapter) },
-          }
-        end,
-      })
-
-      vim.api.nvim_create_autocmd('User', {
-        pattern = 'CodeCompanionRequestFinished',
-        group = group,
-        callback = function(args)
-          local id = args.data.id
-          local handle = handles[id]
-          handles[id] = nil
-          if handle then finish(handle, args.data.status) end
-        end,
-      })
+      new_autocmd('User', function(args)
+        local id = args.data.id
+        local handle = handles[id]
+        handles[id] = nil
+        if handle then finish(handle, args.data.status) end
+      end, { pattern = 'CodeCompanionRequestFinished' })
     end,
   })
 
@@ -369,10 +391,8 @@ end)
 
 later(function()
   add {
-    source = 'milanglacier/minuet-ai.nvim',
-    depends = {
-      'nvim-lua/plenary.nvim',
-    },
+    'https://github.com/milanglacier/minuet-ai.nvim',
+    'https://github.com/nvim-lua/plenary.nvim',
   }
   require('minuet').setup {
     context_window = 10000,
@@ -399,12 +419,12 @@ later(function()
 end)
 
 later(function()
-  add 'folke/flash.nvim'
-  require('flash').setup()
+  add { 'https://github.com/folke/flash.nvim' }
+  require('flash').setup {}
 end)
 
 later(function()
-  add 'zk-org/zk-nvim'
+  add { 'https://github.com/zk-org/zk-nvim' }
   require('zk').setup {
     picker = 'snacks_picker',
     lsp = { config = { name = 'zk_ls' } },

@@ -1,4 +1,9 @@
-local add, later, now = MiniDeps.add, MiniDeps.later, MiniDeps.now
+local add = vim.pack.add
+
+local now_if_args = Config.now_if_args
+local later = Config.later
+local new_autocmd = Config.new_autocmd
+local nmap = Config.nmap
 
 local ls_mapping = {
   ansible_ls = 'ansible-language-server',
@@ -58,7 +63,7 @@ local function on_attach(client, bufnr)
     keymap('n', '<Leader>i', function()
       vim.lsp.inlay_hint.enable(
         not vim.lsp.inlay_hint.is_enabled { bufnr = bufnr },
-        { buf = bufnr }
+        { bufnr = bufnr }
       )
     end, 'LSP toggle inlay hint')
   end
@@ -80,29 +85,28 @@ local function on_attach(client, bufnr)
   setup_diagnostic()
 end
 
-vim.api.nvim_create_autocmd('LspAttach', {
-  desc = 'Configure LSP clients',
-  group = vim.api.nvim_create_augroup('configure-lsp-clients', { clear = true }),
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client == nil then return end
-    on_attach(client, args.buf)
-  end,
-})
+new_autocmd('LspAttach', function(args)
+  local client = vim.lsp.get_client_by_id(args.data.client_id)
+  if client == nil then return end
+  on_attach(client, args.buf)
+end, { desc = 'Configure LSP clients' })
 
 later(function()
-  add 'williamboman/mason.nvim'
+  add { 'https://github.com/williamboman/mason.nvim' }
   require('mason').setup()
   local registry = require 'mason-registry'
   local packages = { 'black', 'eslint_d', 'nixfmt', 'prettierd' }
   local excluded_packages = { 'deno', 'gleam', 'nixd', 'ruby-lsp', 'shopify-cli', 'zk' }
 
-  local ensure_installed = vim.tbl_filter(function(name)
+  local ensure_installed = vim.tbl_values(ls_mapping)
+  vim.list_extend(ensure_installed, packages)
+  ensure_installed = vim.tbl_filter(function(name)
     return not vim.tbl_contains(excluded_packages, name)
-  end, vim.list_extend(ls_mapping, packages))
+  end, ensure_installed)
+  table.sort(ensure_installed)
 
   registry.refresh(function()
-    for _, pkg_name in pairs(ensure_installed) do
+    for _, pkg_name in ipairs(ensure_installed) do
       local pkg = registry.get_package(pkg_name)
       if not pkg:is_installed() then pkg:install() end
     end
@@ -110,14 +114,14 @@ later(function()
 end)
 
 later(function()
-  add 'icholy/lsplinks.nvim'
+  add { 'https://github.com/icholy/lsplinks.nvim' }
   local lsplinks = require 'lsplinks'
   lsplinks.setup()
-  vim.keymap.set('n', 'gx', lsplinks.gx, { desc = 'Open file using LSP document links' })
+  nmap('gx', lsplinks.gx, 'Open file using LSP document links')
 end)
 
 later(function()
-  add 'esmuellert/nvim-eslint'
+  add { 'https://github.com/esmuellert/nvim-eslint' }
   require('nvim-eslint').setup {
     workingDirectory = function(bufnr)
       return { directory = vim.fs.root(bufnr, { 'package.json' }) }
@@ -125,9 +129,11 @@ later(function()
   }
 end)
 
-later(function()
-  add 'folke/lazydev.nvim'
-  add 'b0o/SchemaStore.nvim'
+now_if_args(function()
+  add {
+    'https://github.com/folke/lazydev.nvim',
+    'https://github.com/b0o/SchemaStore.nvim',
+  }
 
   local lazydev = require 'lazydev'
   local schemastore = require 'schemastore'

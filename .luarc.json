@@ -19,10 +19,6 @@
     ]
   },
   "diagnostics.globals": [
-    "MiniCompletion",
-    "MiniDeps",
-    "MiniNotify",
-    "MiniPick",
     "vim"
   ],
   "workspace.checkThirdParty": false,
