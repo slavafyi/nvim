@@ -170,7 +170,7 @@ later(function()
   }
 end)
 
-now(function()
+now_if_args(function()
   add { 'https://github.com/folke/snacks.nvim' }
   require('snacks').setup {
     bigfile = {},
@@ -188,13 +188,14 @@ now(function()
         },
       },
     },
+    quickfile = {},
     words = {
       modes = { 'n' },
     },
   }
 end)
 
-now(function()
+later(function()
   add { 'https://github.com/dmtrKovalenko/fff.nvim' }
 
   local fff = require 'fff'

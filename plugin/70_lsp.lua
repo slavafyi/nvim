@@ -1,5 +1,6 @@
 local add = vim.pack.add
 
+local now_if_args = Config.now_if_args
 local later = Config.later
 local new_autocmd = Config.new_autocmd
 local nmap = Config.nmap
@@ -128,7 +129,7 @@ later(function()
   }
 end)
 
-later(function()
+now_if_args(function()
   add {
     'https://github.com/folke/lazydev.nvim',
     'https://github.com/b0o/SchemaStore.nvim',
