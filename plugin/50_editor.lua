@@ -1,10 +1,10 @@
 local add = vim.pack.add
 
-local now_if_args = Config.now_if_args
 local later = Config.later
 local new_autocmd = Config.new_autocmd
-local on_packchanged = Config.on_packchanged
 local nmap_leader = Config.nmap_leader
+local now_if_args = Config.now_if_args
+local on_packchanged = Config.on_packchanged
 local xmap_leader = Config.xmap_leader
 
 later(function()

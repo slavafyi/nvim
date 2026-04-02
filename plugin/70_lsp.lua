@@ -1,9 +1,9 @@
 local add = vim.pack.add
 
-local now_if_args = Config.now_if_args
 local later = Config.later
 local new_autocmd = Config.new_autocmd
 local nmap = Config.nmap
+local now_if_args = Config.now_if_args
 
 local ls_mapping = {
   ansible_ls = 'ansible-language-server',

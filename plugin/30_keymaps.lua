@@ -1,8 +1,8 @@
-local nmap = Config.nmap
 local imap = Config.imap
-local xmap = Config.xmap
+local nmap = Config.nmap
 local nmap_leader = Config.nmap_leader
 local vmap_leader = Config.vmap_leader
+local xmap = Config.xmap
 local xmap_leader = Config.xmap_leader
 
 imap('jk', '<Esc>', 'Esc')
