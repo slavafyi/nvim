@@ -43,6 +43,12 @@ Config.on_filetype = function(ft, f)
   misc.safely('filetype:' .. ft, f)
 end
 
+Config.apply_colorscheme = function()
+  local schemes = vim.g.colorscheme or {}
+  local scheme = schemes[vim.o.background]
+  if scheme and scheme ~= '' then vim.cmd.colorscheme(scheme) end
+end
+
 local gr = vim.api.nvim_create_augroup('custom-config', { clear = true })
 
 ---@param event string|string[]

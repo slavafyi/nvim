@@ -1,5 +1,6 @@
 local add = vim.pack.add
 
+local apply_colorscheme = Config.apply_colorscheme
 local later = Config.later
 local new_autocmd = Config.new_autocmd
 local now = Config.now
@@ -17,6 +18,8 @@ now(function()
     desc = 'Override PaperColor diff highlights',
     pattern = { 'PaperColorSlim', 'PaperColorSlimLight' },
   })
+
+  apply_colorscheme()
 end)
 
 later(function()
