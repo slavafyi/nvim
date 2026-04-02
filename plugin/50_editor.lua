@@ -160,21 +160,6 @@ later(function()
   xmap_leader('f', format, 'Format document')
 end)
 
-later(function()
-  add { 'https://github.com/folke/which-key.nvim' }
-  require('which-key').setup {
-    icons = {
-      colors = false,
-      mappings = false,
-      separator = '',
-    },
-    preset = 'helix',
-    win = {
-      width = { min = 40 },
-    },
-  }
-end)
-
 now_if_args(function()
   add { 'https://github.com/folke/snacks.nvim' }
   require('snacks').setup {
