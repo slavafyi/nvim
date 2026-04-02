@@ -28,7 +28,7 @@ nmap('вв', 'dd', 'Delete line')
 nmap('вц', 'dw', 'Delete word')
 imap('ол', '<Esc>', 'Escape')
 
-nmap_leader('u', '<Cmd>UndotreeToggle<Cr>', 'UndoTree')
+nmap_leader('u', '<Cmd>packadd nvim.undotree | Undotree<Cr>', 'UndoTree')
 nmap('\\', '<Cmd>Oil<Cr>', 'Oil')
 nmap('|', '<Cmd>Oil --float<Cr>', 'Oil float')
 nmap_leader('G', '<Cmd>Git<Cr>', 'Git status')

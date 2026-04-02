@@ -7,11 +7,6 @@ local now_if_args = Config.now_if_args
 local on_packchanged = Config.on_packchanged
 local xmap_leader = Config.xmap_leader
 
-later(function()
-  add { 'https://github.com/mbbill/undotree' }
-  vim.g.undotree_SetFocusWhenToggle = 1
-end)
-
 now_if_args(function()
   add {
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
