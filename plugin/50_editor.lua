@@ -9,7 +9,7 @@ local xmap_leader = Config.xmap_leader
 
 now_if_args(function()
   add {
-    { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
+    'https://github.com/nvim-treesitter/nvim-treesitter',
     'https://github.com/nvim-treesitter/nvim-treesitter-textobjects',
   }
 
