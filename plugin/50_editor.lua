@@ -375,35 +375,6 @@ later(function()
 end)
 
 later(function()
-  add {
-    'https://github.com/milanglacier/minuet-ai.nvim',
-    'https://github.com/nvim-lua/plenary.nvim',
-  }
-  require('minuet').setup {
-    context_window = 10000,
-    debounce = 200,
-    throttle = 500,
-    provider = 'openai',
-    provider_options = {
-      openai = {
-        model = 'gpt-5.4-mini',
-      },
-    },
-    virtualtext = {
-      auto_trigger_ft = {},
-      keymap = {
-        accept = '<A-y>',
-        accept_line = '<A-l>',
-        accept_n_lines = '<A-z>',
-        prev = '<A-[>',
-        next = '<A-]>',
-        dismiss = '<A-e>',
-      },
-    },
-  }
-end)
-
-later(function()
   add { 'https://github.com/folke/flash.nvim' }
   require('flash').setup {}
 end)
