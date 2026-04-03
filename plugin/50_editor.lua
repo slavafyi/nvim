@@ -3,6 +3,7 @@ local add = vim.pack.add
 local later = Config.later
 local new_autocmd = Config.new_autocmd
 local nmap_leader = Config.nmap_leader
+local now = Config.now
 local now_if_args = Config.now_if_args
 local on_packchanged = Config.on_packchanged
 local xmap_leader = Config.xmap_leader
@@ -155,7 +156,7 @@ later(function()
   xmap_leader('f', format, 'Format document')
 end)
 
-now_if_args(function()
+now(function()
   add { 'https://github.com/folke/snacks.nvim' }
   require('snacks').setup {
     bigfile = {},
