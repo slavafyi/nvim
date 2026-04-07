@@ -79,9 +79,23 @@ later(function()
             return vim.tbl_contains({ 'gitcommit', 'markdown' }, vim.o.filetype)
           end,
         },
+        snippets = {
+          should_show_items = function(ctx)
+            return ctx.trigger.initial_kind ~= 'trigger_character'
+          end,
+        },
         lazydev = {
           module = 'lazydev.integrations.blink',
           score_offset = 10,
+        },
+        lsp = {
+          transform_items = function(ctx, items)
+            if ctx.trigger.initial_kind ~= 'trigger_character' then return items end
+            local snippet_kind = require('blink.cmp.types').CompletionItemKind.Snippet
+            return vim.tbl_filter(function(item)
+              return item.kind ~= snippet_kind
+            end, items)
+          end,
         },
         spell = {
           module = 'blink-cmp-spell',
