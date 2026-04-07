@@ -24,6 +24,7 @@ local ls_mapping = {
   taplo_ls = 'taplo',
   ts_ls = 'typescript-language-server',
   yaml_ls = 'yaml-language-server',
+  zig_ls = 'zls',
   zk_ls = 'zk',
 }
 
