@@ -17,6 +17,8 @@ local ls_mapping = {
   json_ls = 'json-lsp',
   lua_ls = 'lua-language-server',
   nix_ls = 'nixd',
+  oxfmt_ls = 'oxfmt',
+  oxlint_ls = 'oxlint',
   py_ls = 'python-lsp-server',
   ruby_ls = 'ruby-lsp',
   shopify_theme_ls = 'shopify-cli',
@@ -101,7 +103,8 @@ later(function()
   require('mason').setup()
   local registry = require 'mason-registry'
   local packages = { 'black', 'eslint_d', 'nixfmt', 'prettierd' }
-  local excluded_packages = { 'deno', 'gleam', 'nixd', 'ruby-lsp', 'shopify-cli', 'zk' }
+  local excluded_packages =
+    { 'deno', 'gleam', 'nixd', 'oxfmt', 'oxlint', 'ruby-lsp', 'shopify-cli', 'zk' }
 
   local ensure_installed = vim.tbl_values(ls_mapping)
   vim.list_extend(ensure_installed, packages)
