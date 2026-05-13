@@ -10,3 +10,7 @@ new_autocmd('OptionSet', apply_colorscheme, {
   pattern = 'background',
   nested = true,
 })
+
+new_autocmd('TermOpen', function()
+  vim.opt_local.spell = false
+end, { desc = 'Disable spell checking in terminal buffers' })
