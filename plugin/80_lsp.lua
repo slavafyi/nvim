@@ -104,7 +104,7 @@ later(function()
   local registry = require 'mason-registry'
   local packages = { 'black', 'eslint_d', 'nixfmt', 'prettierd' }
   local excluded_packages =
-    { 'deno', 'gleam', 'nixd', 'oxfmt', 'oxlint', 'ruby-lsp', 'shopify-cli', 'zk' }
+    { 'deno', 'gleam', 'nixd', 'oxlint', 'ruby-lsp', 'shopify-cli', 'zk' }
 
   local ensure_installed = vim.tbl_values(ls_mapping)
   vim.list_extend(ensure_installed, packages)
