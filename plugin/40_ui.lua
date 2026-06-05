@@ -6,6 +6,7 @@ local now = Config.now
 
 now(function()
   add { 'https://github.com/slavafyi/papercolor-theme-slim' }
+  add { 'https://github.com/slavafyi/kintsugi.nvim' }
   apply_colorscheme()
 end)
 
