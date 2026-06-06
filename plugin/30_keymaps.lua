@@ -6,6 +6,7 @@ local xmap = Config.xmap
 local xmap_leader = Config.xmap_leader
 
 imap('jk', '<Esc>', 'Esc')
+imap('ол', '<Esc>', 'Esc')
 nmap('<Esc>', '<Cmd>noh<Cr><Esc>', 'Clear search')
 imap('<Esc>', '<Cmd>noh<Cr><Esc>', 'Clear search')
 nmap_leader('y', '"+y', 'Copy clipboard')
@@ -15,18 +16,6 @@ vmap_leader('Y', '"+Y', 'Copy line clipboard')
 xmap_leader('p', '"_dP', 'Paste keep register')
 xmap('<A-j>', ":m '>+1<Cr>gv=gv", 'Move down')
 xmap('<A-k>', ":m '<-2<Cr>gv=gv", 'Move up')
-
-nmap('л', 'gk', 'Up')
-nmap('о', 'gj', 'Down')
-nmap('р', 'h', 'Left')
-nmap('д', 'l', 'Right')
-nmap('ш', 'i', 'Insert mode')
-nmap('Ж', ':', 'Command-line mode')
-nmap('нн', 'yy', 'Yank line')
-nmap('нц', 'yw', 'Yank word')
-nmap('вв', 'dd', 'Delete line')
-nmap('вц', 'dw', 'Delete word')
-imap('ол', '<Esc>', 'Escape')
 
 nmap_leader('u', '<Cmd>packadd nvim.undotree | Undotree<Cr>', 'UndoTree')
 nmap('\\', '<Cmd>Oil<Cr>', 'Oil')

@@ -8,6 +8,10 @@ vim.opt.cursorline = true
 vim.opt.formatoptions:remove 't'
 vim.opt.ignorecase = true
 vim.opt.inccommand = 'split'
+vim.opt.langmap = table.concat({
+  [[ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯЁХЪЖЭБЮ±;ABCDEFGHIJKLMNOPQRSTUVWXYZ~{}:\"<>~]],
+  [[фисвуапршолдьтщзйкыегмцчняёхъжэбю§;abcdefghijklmnopqrstuvwxyz`[]\;'\,.`]],
+}, ',')
 vim.opt.list = true
 vim.opt.listchars = { space = '·', tab = '▸ ' }
 vim.opt.number = true
