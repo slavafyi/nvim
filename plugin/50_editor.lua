@@ -124,6 +124,12 @@ later(function()
     condition = conform_util.root_file { 'node_modules/stylelint-prettier' },
   }
 
+  conform.formatters.odinfmt = {
+    command = 'odinfmt',
+    args = { '-stdin' },
+    stdin = true,
+  }
+
   conform.setup {
     default_format_opts = {
       lsp_format = 'fallback',
@@ -140,6 +146,7 @@ later(function()
       json = { 'oxfmt', 'prettierd' },
       liquid = { 'prettierd' },
       lua = { 'stylua' },
+      odin = { 'odinfmt' },
       python = { 'black' },
       sh = { 'shfmt' },
       yaml = { 'prettierd' },

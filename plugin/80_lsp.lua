@@ -17,6 +17,7 @@ local ls_mapping = {
   json_ls = 'json-lsp',
   lua_ls = 'lua-language-server',
   nix_ls = 'nixd',
+  odin_ls = 'ols',
   oxfmt_ls = 'oxfmt',
   oxlint_ls = 'oxlint',
   py_ls = 'python-lsp-server',
@@ -104,7 +105,7 @@ later(function()
   local registry = require 'mason-registry'
   local packages = { 'black', 'eslint_d', 'nixfmt', 'prettierd' }
   local excluded_packages =
-    { 'deno', 'gleam', 'nixd', 'oxlint', 'ruby-lsp', 'shopify-cli', 'zk' }
+    { 'deno', 'gleam', 'nixd', 'ols', 'oxlint', 'ruby-lsp', 'shopify-cli', 'zk' }
 
   local ensure_installed = vim.tbl_values(ls_mapping)
   vim.list_extend(ensure_installed, packages)
