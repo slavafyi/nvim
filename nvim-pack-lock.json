@@ -54,9 +54,9 @@
       "rev": "b4e431934af1fe224a3a801f632c008278cb7628",
       "src": "https://github.com/m4xshen/hardtime.nvim"
     },
-    "kintsugi.nvim": {
-      "rev": "2a64a05438c79377cfc50b34a20a903c3354d160",
-      "src": "https://github.com/slavafyi/kintsugi.nvim"
+    "koda.nvim": {
+      "rev": "a7da3ced59eadafbda6eb4d7f7e2a6a3d9ecf858",
+      "src": "https://github.com/oskarnurm/koda.nvim"
     },
     "lazydev.nvim": {
       "rev": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d",
@@ -89,10 +89,6 @@
     "oil.nvim": {
       "rev": "b73018b75affd13fa38e2fc94ef753b465f770d7",
       "src": "https://github.com/stevearc/oil.nvim"
-    },
-    "papercolor-theme-slim": {
-      "rev": "7e345ad24d31b8f982990681141fb87e7201442c",
-      "src": "https://github.com/slavafyi/papercolor-theme-slim"
     },
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
