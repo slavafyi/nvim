@@ -23,13 +23,14 @@ now(function()
         end
       end
 
-      hl.WarningMsg = { fg = c.warning }
-      hl.String = { fg = string }
       hl.Character = { fg = string }
+      hl.CursorLineNr = { fg = c.fg }
       hl.Identifier = { fg = c.fg }
       hl.Special = { fg = c.emphasis }
+      hl.String = { fg = string }
+      hl.WarningMsg = { fg = c.warning }
 
-      for _, name in ipairs { 'CursorLineNr', 'PmenuMatch', 'Search', 'MatchParen' } do
+      for _, name in ipairs { 'CurSearch', 'MatchParen', 'PmenuMatch', 'Search' } do
         hl[name] = { fg = glow, bold = true }
       end
     end,
