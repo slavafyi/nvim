@@ -99,6 +99,17 @@ new_autocmd('LspAttach', function(args)
   on_attach(client, args.buf)
 end, { desc = 'Configure LSP clients' })
 
+local open_floating_preview = vim.lsp.util.open_floating_preview
+---@diagnostic disable-next-line: duplicate-set-field
+vim.lsp.util.open_floating_preview = function(contents, syntax, opts)
+  opts = vim.tbl_extend('keep', opts or {}, {
+    max_width = math.floor(vim.o.columns * 0.85),
+    max_height = math.floor(vim.o.lines * 0.85),
+  })
+
+  return open_floating_preview(contents, syntax, opts)
+end
+
 later(function()
   add { 'https://github.com/williamboman/mason.nvim' }
   require('mason').setup()
