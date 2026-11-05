@@ -139,10 +139,7 @@ later(function()
 end)
 
 later(function()
-  add {
-    'https://github.com/milanglacier/minuet-ai.nvim',
-    'https://github.com/nvim-lua/plenary.nvim',
-  }
+  add { 'https://github.com/milanglacier/minuet-ai.nvim' }
   require('minuet').setup {
     context_window = 10000,
     debounce = 200,
@@ -150,7 +147,10 @@ later(function()
     provider = 'openai',
     provider_options = {
       openai = {
-        model = 'gpt-5.4-mini',
+        model = 'gpt-6-luna',
+        optional = {
+          reasoning_effort = 'none',
+        },
       },
     },
     virtualtext = {
