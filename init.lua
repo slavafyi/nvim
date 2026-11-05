@@ -1,9 +1,5 @@
 _G.Config = {}
 
-vim.pack.add { 'https://github.com/nvim-mini/mini.misc' }
-
-local misc = require 'mini.misc'
-
 ---@alias Config.Callback fun()
 ---@alias Config.KeymapRhs string|function
 ---@alias Config.AutocmdCallback fun(ev: vim.api.keyset.create_autocmd.callback_args): boolean?|fun(): boolean?
@@ -15,6 +11,47 @@ local misc = require 'mini.misc'
 
 ---@class Config.PackChangedEvent: vim.api.keyset.create_autocmd.callback_args
 ---@field data { spec: { name: string }, kind: string, active: boolean }
+
+local gr = vim.api.nvim_create_augroup('custom-config', { clear = true })
+
+---@param event string|string[]
+---@param callback Config.AutocmdCallback
+---@param opts? Config.AutocmdOpts
+---@return integer
+Config.new_autocmd = function(event, callback, opts)
+  return vim.api.nvim_create_autocmd(
+    event,
+    vim.tbl_extend('force', opts or {}, {
+      group = gr,
+      callback = callback,
+    })
+  )
+end
+
+local install_handlers = {}
+---@type table<string, Config.PackChangedEvent>
+local pending_installs = {}
+
+---@param ev Config.PackChangedEvent
+local remember_install = function(ev)
+  local name, kind = ev.data.spec.name, ev.data.kind
+  if kind == 'delete' then
+    pending_installs[name] = nil
+  elseif kind == 'install' and not install_handlers[name] then
+    pending_installs[name] = ev
+  end
+end
+
+-- Lockfile installs can happen during the very first vim.pack.add().
+Config.new_autocmd(
+  'PackChanged',
+  remember_install,
+  { desc = 'Remember installs until their handlers are registered' }
+)
+
+vim.pack.add { 'https://github.com/nvim-mini/mini.misc' }
+
+local misc = require 'mini.misc'
 
 ---@param f Config.Callback
 Config.now = function(f)
@@ -72,22 +109,6 @@ Config.statusline_activity = function()
   return table.concat(parts, ' ') .. ' '
 end
 
-local gr = vim.api.nvim_create_augroup('custom-config', { clear = true })
-
----@param event string|string[]
----@param callback Config.AutocmdCallback
----@param opts? Config.AutocmdOpts
----@return integer
-Config.new_autocmd = function(event, callback, opts)
-  return vim.api.nvim_create_autocmd(
-    event,
-    vim.tbl_extend('force', opts or {}, {
-      group = gr,
-      callback = callback,
-    })
-  )
-end
-
 ---@param plugin_name string
 ---@param kinds string[]
 ---@param callback Config.Callback
@@ -101,6 +122,13 @@ Config.on_packchanged = function(plugin_name, kinds, callback, desc)
     callback()
   end
   Config.new_autocmd('PackChanged', f, { desc = desc, pattern = '*' })
+
+  if vim.tbl_contains(kinds, 'install') then
+    install_handlers[plugin_name] = true
+    local ev = pending_installs[plugin_name]
+    pending_installs[plugin_name] = nil
+    if ev then f(ev) end
+  end
 end
 
 ---@param lhs string
