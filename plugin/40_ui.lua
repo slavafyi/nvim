@@ -1,6 +1,6 @@
 local add = vim.pack.add
 
-local later = Config.later
+local new_autocmd = Config.new_autocmd
 local now = Config.now
 
 now(function()
@@ -39,7 +39,34 @@ now(function()
   vim.cmd 'colorscheme koda'
 end)
 
-later(function()
-  add { 'https://github.com/j-hui/fidget.nvim' }
-  require('fidget').setup {}
+now(function()
+  require('vim._core.ui2').enable {
+    msg = {
+      targets = { progress = 'msg' },
+    },
+  }
+
+  new_autocmd('LspProgress', function(ev)
+    local value = ev.data.params.value
+
+    if type(value) ~= 'table' or not vim.tbl_contains({ 'begin', 'report', 'end' }, value.kind) then
+      return
+    end
+
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    local message = value.message or value.title or (value.kind == 'end' and 'Done' or 'Working…')
+
+    if client then message = client.name .. ': ' .. message end
+
+    vim.api.nvim_echo({ { message } }, false, {
+      id = ('lsp.%d.%s'):format(ev.data.client_id, ev.data.params.token),
+      kind = 'progress',
+      source = 'vim.lsp',
+      title = value.title,
+      status = value.kind == 'end' and 'success' or 'running',
+      percent = value.percentage,
+    })
+
+    vim.cmd.redrawstatus()
+  end, { desc = 'Show LSP progress in the native UI' })
 end)
