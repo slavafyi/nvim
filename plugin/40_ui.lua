@@ -42,7 +42,10 @@ end)
 now(function()
   require('vim._core.ui2').enable {
     msg = {
-      targets = { progress = 'msg' },
+      targets = {
+        list_cmd = 'pager',
+        progress = 'msg',
+      },
     },
   }
 
