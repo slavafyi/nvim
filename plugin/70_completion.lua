@@ -2,6 +2,7 @@ local add = vim.pack.add
 
 local imap = Config.imap
 local later = Config.later
+local on_packchanged = Config.on_packchanged
 local smap = Config.smap
 
 later(function()
@@ -17,12 +18,22 @@ later(function()
   add {
     {
       src = 'https://github.com/saghen/blink.cmp',
-      version = 'v1.10.2',
+      version = 'v1',
     },
     'https://github.com/L3MON4D3/LuaSnip',
     'https://github.com/ribru17/blink-cmp-spell',
     'https://github.com/moyiz/blink-emoji.nvim',
   }
+
+  local blink_build = function()
+    local plugin = vim.pack.get({ 'blink.cmp' }, { info = false })[1]
+    local result = vim
+      .system({ 'cargo', 'build', '--release' }, { cwd = plugin.path, text = true })
+      :wait()
+    assert(result.code == 0, result.stderr)
+  end
+
+  on_packchanged('blink.cmp', { 'install', 'update' }, blink_build, 'Blink build')
 
   require('blink.cmp').setup {
     completion = {
