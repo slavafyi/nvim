@@ -5,7 +5,7 @@
       "src": "https://github.com/L3MON4D3/LuaSnip"
     },
     "SchemaStore.nvim": {
-      "rev": "a652fcc01bf03946ab94b815be8c80ee157cbe1a",
+      "rev": "4794bb7a4cf66b894f0029c3094b7936a8c0e8fe",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "blink-cmp-spell": {
@@ -22,32 +22,32 @@
       "version": "'v1'"
     },
     "conform.nvim": {
-      "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
+      "rev": "016802de402556da54c36bd7359b441266b01cdd",
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "fff.nvim": {
-      "rev": "b6f351d7295d3f89d4f9ecaa94d72089964edc0f",
+      "rev": "b3b8cede0beb95272ebc2c72c648269f9c5228b3",
       "src": "https://github.com/dmtrKovalenko/fff.nvim"
     },
     "flash.nvim": {
-      "rev": "b6346946d10d07998efee029fb0f7a593806d0cd",
+      "rev": "5f0f270fdc7c5b0c21d903ee85b9cb06f2ac636a",
       "src": "https://github.com/folke/flash.nvim"
     },
     "friendly-snippets": {
-      "rev": "5faad2c7e5f5e80424a374d229b15e00cddeeadc",
+      "rev": "e746d9fe3bb433d05f9ac0521584f71c62d27e71",
       "src": "https://github.com/slavafyi/friendly-snippets",
       "version": "'feature/liquid-update'"
     },
     "gitsigns.nvim": {
-      "rev": "31d6fb2d618bca1482b9f274751ead5f03461408",
+      "rev": "ef707fb93301a9b856f36eae4c8f56f5b988a794",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "hardtime.nvim": {
-      "rev": "244753782b945def87472d8f4e9e6a9d4ec18689",
+      "rev": "721a75b9a0c2eb1fb811d34507708ee315cb04eb",
       "src": "https://github.com/m4xshen/hardtime.nvim"
     },
     "koda.nvim": {
-      "rev": "a7da3ced59eadafbda6eb4d7f7e2a6a3d9ecf858",
+      "rev": "25a5c98ca2f6bb0b69f5e2654a78f0d7c7e0721d",
       "src": "https://github.com/oskarnurm/koda.nvim"
     },
     "lazydev.nvim": {
@@ -59,7 +59,7 @@
       "src": "https://github.com/williamboman/mason.nvim"
     },
     "mini.misc": {
-      "rev": "0524e8f7191782609374df6bcf9e607021ceccb1",
+      "rev": "1e9cae4ee48176252a7ddee28133cf9764b74c58",
       "src": "https://github.com/nvim-mini/mini.misc"
     },
     "minuet-ai.nvim": {
@@ -71,15 +71,15 @@
       "src": "https://github.com/esmuellert/nvim-eslint"
     },
     "nvim-treesitter": {
-      "rev": "3d3321b560a63ff92a8692401f303a5123336b86",
+      "rev": "610734c5d3e59761d5f79318d120633374537fa5",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-treesitter-textobjects": {
-      "rev": "898ee307df58f854d11cd7edd06472574d48014e",
+      "rev": "5c7b0263797dfd1bd6202f2b219f3b53a80b2187",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
     },
     "oil.nvim": {
-      "rev": "b73018b75affd13fa38e2fc94ef753b465f770d7",
+      "rev": "d3733d933833a0e59b813ecec99341527adf0c28",
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "snacks.nvim": {
@@ -91,11 +91,11 @@
       "src": "https://github.com/tpope/vim-fugitive"
     },
     "vim-wakatime": {
-      "rev": "2a856d0b7863dc34ffc80647cb52fbd1319fe144",
+      "rev": "98cb7a8a09f8a0cb225b5955bf491ffb9860569f",
       "src": "https://github.com/wakatime/vim-wakatime"
     },
     "zk-nvim": {
-      "rev": "922134d8f95f0169bb572b09f2fa643573cb51f8",
+      "rev": "2093138f4fabce994cf19403fca89d629f312ac9",
       "src": "https://github.com/zk-org/zk-nvim"
     }
   }
