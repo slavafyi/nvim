@@ -86,25 +86,23 @@ Config.apply_colorscheme = function()
   if scheme and scheme ~= '' then vim.cmd.colorscheme(scheme) end
 end
 
-local quote_preference = 'single'
-local format_settings = {
-  indentSize = 2,
-  semicolons = 'remove',
+Config.typescript_preferences = {
+  quote = 'single',
+  format = {
+    indentSize = 2,
+    semicolons = 'remove',
+  },
+  hints = {
+    includeInlayEnumMemberValueHints = true,
+    includeInlayFunctionLikeReturnTypeHints = true,
+    includeInlayFunctionParameterTypeHints = true,
+    includeInlayParameterNameHints = 'literals',
+    includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+    includeInlayPropertyDeclarationTypeHints = true,
+    includeInlayVariableTypeHints = false,
+    includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+  },
 }
-
-local inlay_hints_settings = {
-  includeInlayEnumMemberValueHints = true,
-  includeInlayFunctionLikeReturnTypeHints = true,
-  includeInlayFunctionParameterTypeHints = true,
-  includeInlayParameterNameHints = 'literals',
-  includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-  includeInlayPropertyDeclarationTypeHints = true,
-  includeInlayVariableTypeHints = false,
-  includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-}
-
-Config.typescript_preferences =
-  { quote = quote_preference, format = format_settings, hints = inlay_hints_settings }
 
 ---@param source integer|string Buffer number or directory
 Config.resolve_typescript = function(source)
