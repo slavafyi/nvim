@@ -190,27 +190,12 @@ now_if_args(function()
     includeInlayVariableTypeHintsWhenTypeMatchesName = false,
   }
 
-  local check_deno = function(bufnr)
-    local root_markers = { 'deno.json', 'deno.jsonc' }
-    return vim.fs.root(bufnr, root_markers)
-  end
-
-  local check_ts = function(bufnr)
-    local root_markers = { 'package.json', 'tsconfig.json', 'jsconfig.json' }
-    return vim.fs.root(bufnr, root_markers)
-  end
-
   vim.lsp.config('ts_ls', {
     init_options = {
       preferences = {
         quotePreference = 'single',
       },
     },
-    root_dir = function(bufnr, on_dir)
-      local deno_dir = check_deno(bufnr)
-      local ts_dir = check_ts(bufnr) or vim.fn.getcwd()
-      if deno_dir == nil then on_dir(ts_dir) end
-    end,
     settings = {
       javascript = {
         format = format_settings,
@@ -221,14 +206,6 @@ now_if_args(function()
         inlayHints = inlay_hints_settings,
       },
     },
-  })
-
-  vim.lsp.config('deno_ls', {
-    root_dir = function(bufnr, on_dir)
-      local deno_dir = check_deno(bufnr)
-      local ts_dir = check_ts(bufnr)
-      if ts_dir == nil and deno_dir then on_dir(deno_dir) end
-    end,
   })
 
   vim.lsp.enable(server_list)
