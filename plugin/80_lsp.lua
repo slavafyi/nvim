@@ -70,11 +70,18 @@ local function on_attach(client, bufnr)
     and client:supports_method 'textDocument/inlayHint'
   then
     keymap('n', '<Leader>i', function()
-      vim.lsp.inlay_hint.enable(
-        not vim.lsp.inlay_hint.is_enabled { bufnr = bufnr },
-        { bufnr = bufnr }
-      )
+      local enabled = not vim.lsp.inlay_hint.is_enabled { bufnr = bufnr }
+      vim.lsp.inlay_hint.enable(enabled, { bufnr = bufnr })
+      vim.notify('Inlay hints ' .. (enabled and 'enabled' or 'disabled'), vim.log.levels.INFO)
     end, 'LSP toggle inlay hint')
+  end
+
+  if client:supports_method 'textDocument/codeLens' then
+    keymap('n', '<Leader>L', function()
+      local enabled = not vim.lsp.codelens.is_enabled { bufnr = bufnr }
+      vim.lsp.codelens.enable(enabled, { bufnr = bufnr })
+      vim.notify('Code lenses ' .. (enabled and 'enabled' or 'disabled'), vim.log.levels.INFO)
+    end, 'LSP toggle code lenses')
   end
 
   keymap('n', '<Leader>v', function()
