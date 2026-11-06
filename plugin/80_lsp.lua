@@ -26,6 +26,7 @@ local ls_mapping = {
   tailwindcss_ls = 'tailwindcss-language-server',
   tombi_ls = 'tombi',
   ts_ls = 'typescript-language-server',
+  tsc_ls = 'tsc',
   yaml_ls = 'yaml-language-server',
   zig_ls = 'zls',
   zk_ls = 'zk',
@@ -174,6 +175,7 @@ now_if_args(function()
     },
   })
 
+  local quote_preference = 'single'
   local format_settings = {
     indentSize = 2,
     semicolons = 'remove',
@@ -183,7 +185,7 @@ now_if_args(function()
     includeInlayEnumMemberValueHints = true,
     includeInlayFunctionLikeReturnTypeHints = true,
     includeInlayFunctionParameterTypeHints = true,
-    includeInlayParameterNameHints = 'literal',
+    includeInlayParameterNameHints = 'literals',
     includeInlayParameterNameHintsWhenArgumentMatchesName = false,
     includeInlayPropertyDeclarationTypeHints = true,
     includeInlayVariableTypeHints = false,
@@ -193,7 +195,7 @@ now_if_args(function()
   vim.lsp.config('ts_ls', {
     init_options = {
       preferences = {
-        quotePreference = 'single',
+        quotePreference = quote_preference,
       },
     },
     settings = {
@@ -204,6 +206,33 @@ now_if_args(function()
       typescript = {
         format = format_settings,
         inlayHints = inlay_hints_settings,
+      },
+    },
+  })
+
+  vim.lsp.config('tsc_ls', {
+    settings = {
+      ['js/ts'] = {
+        format = format_settings,
+        preferences = { quoteStyle = quote_preference },
+        inlayHints = {
+          enumMemberValues = { enabled = inlay_hints_settings.includeInlayEnumMemberValueHints },
+          functionLikeReturnTypes = {
+            enabled = inlay_hints_settings.includeInlayFunctionLikeReturnTypeHints,
+          },
+          parameterTypes = { enabled = inlay_hints_settings.includeInlayFunctionParameterTypeHints },
+          parameterNames = {
+            enabled = inlay_hints_settings.includeInlayParameterNameHints,
+            suppressWhenArgumentMatchesName = not inlay_hints_settings.includeInlayParameterNameHintsWhenArgumentMatchesName,
+          },
+          propertyDeclarationTypes = {
+            enabled = inlay_hints_settings.includeInlayPropertyDeclarationTypeHints,
+          },
+          variableTypes = {
+            enabled = inlay_hints_settings.includeInlayVariableTypeHints,
+            suppressWhenTypeMatchesName = not inlay_hints_settings.includeInlayVariableTypeHintsWhenTypeMatchesName,
+          },
+        },
       },
     },
   })

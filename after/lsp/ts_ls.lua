@@ -1,3 +1,5 @@
+local resolve_typescript = Config.resolve_typescript
+
 ---@type vim.lsp.Config
 return {
   init_options = { hostInfo = 'neovim' },
@@ -16,22 +18,19 @@ return {
     'typescriptreact',
   },
   root_dir = function(bufnr, on_dir)
-    local root_markers = {
-      { 'package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', 'bun.lockb', 'bun.lock' },
-    }
-    local project_root = vim.fs.root(bufnr, root_markers)
-    local deno_root = vim.fs.root(bufnr, { { 'deno.json', 'deno.jsonc' } })
-    local deno_lock_root = vim.fs.root(bufnr, { 'deno.lock' })
-
-    -- Deno configs win ties; a Deno lock must be closer than a Node lock.
-    if
-      (deno_lock_root and (not project_root or #deno_lock_root > #project_root))
-      or (deno_root and (not project_root or #deno_root >= #project_root))
-    then
-      return
+    local project = resolve_typescript(bufnr)
+    if project and project.name == 'ts_ls' then on_dir(project.root_dir) end
+  end,
+  before_init = function(params, config)
+    local project = resolve_typescript(config.root_dir)
+    if project and project.tsserver_path then
+      params.initializationOptions = params.initializationOptions or {}
+      params.initializationOptions.tsserver = vim.tbl_extend(
+        'force',
+        params.initializationOptions.tsserver or {},
+        { path = project.tsserver_path }
+      )
     end
-
-    on_dir(project_root or vim.fs.root(bufnr, { '.git' }) or vim.fn.getcwd())
   end,
   handlers = {
     -- handle rename request for certain code actions like extracting functions / types

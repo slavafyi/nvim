@@ -86,6 +86,54 @@ Config.apply_colorscheme = function()
   if scheme and scheme ~= '' then vim.cmd.colorscheme(scheme) end
 end
 
+---@param source integer|string Buffer number or directory
+Config.resolve_typescript = function(source)
+  local root_markers = {
+    { 'package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', 'bun.lockb', 'bun.lock' },
+  }
+  local project_root = vim.fs.root(source, root_markers)
+  local deno_root = vim.fs.root(source, { { 'deno.json', 'deno.jsonc' } })
+  local deno_lock_root = vim.fs.root(source, { 'deno.lock' })
+
+  -- Keep the selection rule in sync with deno_ls.
+  if
+    (deno_lock_root and (not project_root or #deno_lock_root > #project_root))
+    or (deno_root and (not project_root or #deno_root >= #project_root))
+  then
+    return
+  end
+
+  local package_root = vim.fs.root(source, { 'node_modules/typescript/package.json' })
+  local install_root = package_root and vim.fs.dirname(vim.fs.dirname(package_root))
+  local root = project_root or vim.fs.root(source, { '.git' }) or install_root or vim.fn.getcwd()
+  if not install_root then return { name = 'ts_ls', root_dir = root } end
+
+  -- Package-local installations need separate clients in mixed-version monorepos.
+  if vim.fs.relpath(root, install_root) then root = install_root end
+
+  local package_path = vim.fs.joinpath(package_root, 'package.json')
+  local ok, version = pcall(function()
+    local package = vim.json.decode(table.concat(vim.fn.readfile(package_path), '\n'))
+    return vim.version.parse(package.version)
+  end)
+  if not ok or not version then
+    vim.notify_once('Cannot read TypeScript version: ' .. package_path, vim.log.levels.ERROR)
+    return
+  end
+
+  if version.major >= 7 then
+    local cmd = vim.fs.joinpath(install_root, 'node_modules/.bin/tsc')
+    if vim.fn.executable(cmd) ~= 1 then cmd = 'tsc' end
+    return { name = 'tsc_ls', root_dir = root, cmd = cmd }
+  end
+
+  return {
+    name = 'ts_ls',
+    root_dir = root,
+    tsserver_path = vim.fs.joinpath(package_root, 'lib/tsserver.js'),
+  }
+end
+
 Config.lsp_includeexpr = function()
   local target = vim.ui._get_urls()[1]
   if target and not target:match '^%w+:' then return target end
