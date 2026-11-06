@@ -134,6 +134,25 @@ Config.resolve_typescript = function(source)
   }
 end
 
+---@param source integer|string
+---@param markers string[]
+---@param fields table<string, string>
+---@return string?
+Config.root_with_field = function(source, markers, fields)
+  local root = vim.fs.root(source, { markers })
+  local field_root = vim.fs.root(source, function(name, path)
+    local field = fields[name]
+    if not field then return false end
+    local file = io.open(vim.fs.joinpath(path, name), 'r')
+    if not file then return false end
+    local contents = file:read '*a'
+    file:close()
+    return contents ~= nil and contents:find(field, 1, true) ~= nil
+  end)
+  if field_root and (not root or #field_root > #root) then return field_root end
+  return root
+end
+
 Config.lsp_includeexpr = function()
   local target = vim.ui._get_urls()[1]
   if target and not target:match '^%w+:' then return target end

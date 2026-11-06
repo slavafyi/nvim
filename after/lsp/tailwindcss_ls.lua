@@ -1,6 +1,15 @@
+local root_with_field = Config.root_with_field
+
 ---@type vim.lsp.Config
 return {
-  cmd = { 'tailwindcss-language-server', '--stdio' },
+  cmd = function(dispatchers, config)
+    local cmd = 'tailwindcss-language-server'
+    if config.root_dir then
+      local local_cmd = vim.fs.joinpath(config.root_dir, 'node_modules/.bin', cmd)
+      if vim.fn.executable(local_cmd) == 1 then cmd = local_cmd end
+    end
+    return vim.lsp.rpc.start({ cmd, '--stdio' }, dispatchers)
+  end,
   -- filetypes copied and adjusted from tailwindcss-intellisense
   filetypes = {
     -- html
@@ -115,9 +124,12 @@ return {
       -- Fallback for tailwind v4, where tailwind.config.* is not required anymore
       '.git',
     }
-    local fname = vim.api.nvim_buf_get_name(bufnr)
-    local found = vim.fs.find(root_files, { path = fname, upward = true })[1]
-    if found == nil then return end
-    on_dir(vim.fs.dirname(found))
+    local root = root_with_field(bufnr, root_files, {
+      ['package.json'] = 'tailwindcss',
+      ['package.json5'] = 'tailwindcss',
+      ['Gemfile.lock'] = 'tailwind',
+      ['mix.lock'] = 'tailwind',
+    })
+    if root then on_dir(root) end
   end,
 }
