@@ -86,6 +86,26 @@ Config.apply_colorscheme = function()
   if scheme and scheme ~= '' then vim.cmd.colorscheme(scheme) end
 end
 
+local quote_preference = 'single'
+local format_settings = {
+  indentSize = 2,
+  semicolons = 'remove',
+}
+
+local inlay_hints_settings = {
+  includeInlayEnumMemberValueHints = true,
+  includeInlayFunctionLikeReturnTypeHints = true,
+  includeInlayFunctionParameterTypeHints = true,
+  includeInlayParameterNameHints = 'literals',
+  includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+  includeInlayPropertyDeclarationTypeHints = true,
+  includeInlayVariableTypeHints = false,
+  includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+}
+
+Config.typescript_preferences =
+  { quote = quote_preference, format = format_settings, hints = inlay_hints_settings }
+
 ---@param source integer|string Buffer number or directory
 Config.resolve_typescript = function(source)
   local root_markers = {
@@ -95,7 +115,7 @@ Config.resolve_typescript = function(source)
   local deno_root = vim.fs.root(source, { { 'deno.json', 'deno.jsonc' } })
   local deno_lock_root = vim.fs.root(source, { 'deno.lock' })
 
-  -- Keep the selection rule in sync with deno_ls.
+  -- Keep the selection rule in sync with denols.
   if
     (deno_lock_root and (not project_root or #deno_lock_root > #project_root))
     or (deno_root and (not project_root or #deno_root >= #project_root))
@@ -124,7 +144,7 @@ Config.resolve_typescript = function(source)
   if version.major >= 7 then
     local cmd = vim.fs.joinpath(install_root, 'node_modules/.bin/tsc')
     if vim.fn.executable(cmd) ~= 1 then cmd = 'tsc' end
-    return { name = 'tsc_ls', root_dir = root, cmd = cmd }
+    return { name = 'tsc', root_dir = root, cmd = cmd }
   end
 
   return {

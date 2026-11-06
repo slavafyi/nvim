@@ -227,7 +227,7 @@ later(function()
   add { 'https://github.com/zk-org/zk-nvim' }
   require('zk').setup {
     picker = 'snacks_picker',
-    lsp = { config = { name = 'zk_ls' } },
+    lsp = { config = { name = 'zk' } },
   }
   vim.env.ZK_NOTEBOOK_DIR = vim.env.NOTES_DIR
 end)

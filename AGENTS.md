@@ -16,7 +16,7 @@
 - `plugin/*.lua` files are sourced automatically on startup in lexical order.
   Add new startup scripts here and keep the numeric prefix scheme (`10_…`, `20_…`, etc.) to control load order.
 - `after/*` is reserved for overriding runtime behavior after plugins load:
-  `after/ftdetect/` for filetype detection, `after/ftplugin/` for filetype-local options, `after/lsp/<server>.lua` for server definitions.
+  `after/ftdetect/` for filetype detection, `after/ftplugin/` for filetype-local options, `after/lsp/<server>.lua` for local overrides of nvim-lspconfig server defaults (use upstream server names).
 
 ## Formatting
 

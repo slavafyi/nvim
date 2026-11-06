@@ -54,10 +54,6 @@
       "rev": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d",
       "src": "https://github.com/folke/lazydev.nvim"
     },
-    "mason.nvim": {
-      "rev": "2a6940af80375532e5e9e7c1f2fc6319a1b7a69d",
-      "src": "https://github.com/williamboman/mason.nvim"
-    },
     "mini.misc": {
       "rev": "1e9cae4ee48176252a7ddee28133cf9764b74c58",
       "src": "https://github.com/nvim-mini/mini.misc"
@@ -69,6 +65,10 @@
     "nvim-eslint": {
       "rev": "3c893af4152a417742e6ce96d9468b3f26359006",
       "src": "https://github.com/esmuellert/nvim-eslint"
+    },
+    "nvim-lspconfig": {
+      "rev": "d5c7e7bcc15bccc01bf1601a03473e10de2f0f7e",
+      "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {
       "rev": "610734c5d3e59761d5f79318d120633374537fa5",
