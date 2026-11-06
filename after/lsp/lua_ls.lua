@@ -1,19 +1,9 @@
 ---@type vim.lsp.Config
 return {
-  cmd = { 'lua-language-server' },
-  filetypes = { 'lua' },
   init_options = { codeLensViewReferences = true },
-  root_markers = {
-    { '.emmyrc.json', '.luarc.json', '.luarc.jsonc' },
-    { '.luacheckrc', '.stylua.toml', 'stylua.toml', 'selene.toml', 'selene.yml' },
-    { '.git' },
-  },
-  settings = {
-    Lua = {
-      codeLens = { enable = true },
-      hint = { enable = true, semicolon = 'Disable' },
-    },
-  },
+  on_attach = function(_, bufnr)
+    require('lazydev').find_workspace(bufnr)
+  end,
   commands = {
     ['lua.showReferences'] = function(command, ctx)
       local client = assert(vim.lsp.get_client_by_id(ctx.client_id))

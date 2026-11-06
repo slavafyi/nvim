@@ -109,19 +109,9 @@ later(function()
   add { 'https://github.com/stevearc/conform.nvim' }
 
   local conform = require 'conform'
-  local conform_util = require 'conform.util'
 
-  conform.formatters.prettierd_js = {
-    inherit = 'prettierd',
-    condition = conform_util.root_file {
-      'node_modules/eslint-plugin-prettier',
-      'node_modules/eslint-config-prettier',
-    },
-  }
-
-  conform.formatters.prettierd_css = {
-    inherit = 'prettierd',
-    condition = conform_util.root_file { 'node_modules/stylelint-prettier' },
+  conform.formatters.prettierd = {
+    require_cwd = true,
   }
 
   conform.formatters.odinfmt = {
@@ -136,14 +126,14 @@ later(function()
       stop_after_first = true,
     },
     formatters_by_ft = {
-      css = { 'oxfmt', 'prettierd_css', 'stylelint' },
-      scss = { 'oxfmt', 'prettierd_css', 'stylelint' },
-      javascript = { 'oxfmt', 'prettierd_js', 'eslint_d' },
-      javascriptreact = { 'oxfmt', 'prettierd_js', 'eslint_d' },
-      typescript = { 'oxfmt', 'prettierd_js', 'eslint_d' },
-      typescriptreact = { 'oxfmt', 'prettierd_js', 'eslint_d' },
+      css = { 'prettierd', 'oxfmt', 'stylelint' },
+      scss = { 'prettierd', 'oxfmt', 'stylelint' },
+      javascript = { 'prettierd', 'oxfmt', 'eslint_d' },
+      javascriptreact = { 'prettierd', 'oxfmt', 'eslint_d' },
+      typescript = { 'prettierd', 'oxfmt', 'eslint_d' },
+      typescriptreact = { 'prettierd', 'oxfmt', 'eslint_d' },
       bash = { 'shfmt' },
-      json = { 'oxfmt', 'prettierd' },
+      json = { 'prettierd', 'oxfmt' },
       liquid = { 'prettierd' },
       lua = { 'stylua' },
       odin = { 'odinfmt' },
@@ -227,7 +217,7 @@ later(function()
   add { 'https://github.com/zk-org/zk-nvim' }
   require('zk').setup {
     picker = 'snacks_picker',
-    lsp = { config = { name = 'zk_ls' } },
+    lsp = { config = { name = 'zk' } },
   }
   vim.env.ZK_NOTEBOOK_DIR = vim.env.NOTES_DIR
 end)
