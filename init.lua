@@ -124,7 +124,11 @@ Config.resolve_typescript = function(source)
   local package_root = vim.fs.root(source, { 'node_modules/typescript/package.json' })
   local install_root = package_root and vim.fs.dirname(vim.fs.dirname(package_root))
   local root = project_root or vim.fs.root(source, { '.git' }) or install_root or vim.fn.getcwd()
-  if not install_root then return { name = 'ts_ls', root_dir = root } end
+  if not install_root then
+    local cmd = vim.fs.joinpath(root, 'node_modules/.bin/tsgo')
+    if vim.fn.executable(cmd) ~= 1 then return end
+    return { name = 'tsc', root_dir = root, cmd = cmd }
+  end
 
   -- Package-local installations need separate clients in mixed-version monorepos.
   if vim.fs.relpath(root, install_root) then root = install_root end
