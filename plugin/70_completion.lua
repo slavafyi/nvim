@@ -8,19 +8,11 @@ local smap = Config.smap
 later(function()
   add {
     {
-      src = 'https://github.com/slavafyi/friendly-snippets',
-      version = 'feature/liquid-update',
-    },
-  }
-end)
-
-later(function()
-  add {
-    {
       src = 'https://github.com/saghen/blink.cmp',
       version = 'v1',
     },
     'https://github.com/L3MON4D3/LuaSnip',
+    'https://github.com/rafamadriz/friendly-snippets',
     'https://github.com/ribru17/blink-cmp-spell',
     'https://github.com/moyiz/blink-emoji.nvim',
   }

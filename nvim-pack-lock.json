@@ -34,9 +34,8 @@
       "src": "https://github.com/folke/flash.nvim"
     },
     "friendly-snippets": {
-      "rev": "e746d9fe3bb433d05f9ac0521584f71c62d27e71",
-      "src": "https://github.com/slavafyi/friendly-snippets",
-      "version": "'feature/liquid-update'"
+      "rev": "7a1c9f7897a4eb078b157a04c7af81e5869215b1",
+      "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "gitsigns.nvim": {
       "rev": "ef707fb93301a9b856f36eae4c8f56f5b988a794",
