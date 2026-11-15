@@ -155,6 +155,8 @@ end)
 
 now(function()
   add { 'https://github.com/folke/snacks.nvim' }
+  if vim.env.REX_SESSION then vim.env.SNACKS_GHOSTTY = 'true' end
+
   require('snacks').setup {
     bigfile = {},
     input = {},
